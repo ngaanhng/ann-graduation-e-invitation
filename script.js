@@ -22,6 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load custom data from localStorage or use defaults
     let appData = JSON.parse(localStorage.getItem('vlu_grad_card_data')) || { ...defaultData };
 
+    // Parse personalized guest name from URL query parameters (e.g. ?to=Anh+Nam or ?guest=Anh+Nam or ?name=Anh+Nam or ?n=Anh+Nam)
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestFromUrl = urlParams.get('to') || urlParams.get('guest') || urlParams.get('name') || urlParams.get('n');
+    if (guestFromUrl && guestFromUrl.trim()) {
+        appData.guestInvitedName = guestFromUrl.trim();
+    }
+
     // --- DOM ELEMENTS ---
     const envelope = document.getElementById('envelope');
     const waxSeal = document.getElementById('waxSeal');
@@ -458,14 +465,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- SHARE LINK BUTTON ---
+    // --- SMART PERSONALIZED SHARE LINK BUTTON ---
     if (shareBtn) {
         shareBtn.addEventListener('click', () => {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(window.location.href);
-                showToast("📋 Đã sao chép liên kết thiệp mời!");
-            } else {
-                showToast("Vui lòng sao chép liên kết trên thanh địa chỉ!");
+            const guestName = prompt("Nhập tên người bạn muốn gửi thiệp (Ví dụ: Anh Nam, Chị Thảo, Bạn Thân...):", appData.guestInvitedName || "Quý Khách");
+            if (guestName !== null && guestName.trim() !== "") {
+                const cleanGuestName = guestName.trim();
+                const baseUrl = window.location.origin + window.location.pathname;
+                const personalizedUrl = `${baseUrl}?to=${encodeURIComponent(cleanGuestName)}`;
+                
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(personalizedUrl);
+                    showToast(`📋 Đã sao chép link cá nhân hóa dành riêng cho "${cleanGuestName}"!`);
+                } else {
+                    prompt(`Liên kết thiệp mời dành riêng cho "${cleanGuestName}":`, personalizedUrl);
+                }
             }
         });
     }
