@@ -1,0 +1,14 @@
+<svg width="60" height="240" viewBox="0 0 60 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top hanging cord in Crimson Red -->
+  <rect x="28" y="0" width="4" height="65" rx="2" fill="#8B1E1E"/>
+  <circle cx="30" cy="67" r="9" fill="#5C0D0D" stroke="#C59B27" stroke-width="2"/>
+  <!-- Tassel ring band in Gold -->
+  <rect x="22" y="76" width="16" height="6" rx="2" fill="#FCE788" stroke="#C59B27" stroke-width="1"/>
+  <!-- Main Tassel threads in Crimson Red & Gold highlights -->
+  <path d="M 22 82 L 8 225 L 52 225 L 38 82 Z" fill="#8B1E1E" opacity="0.95"/>
+  <line x1="24" y1="84" x2="12" y2="223" stroke="#6B0F0F" stroke-width="1.5"/>
+  <line x1="27" y1="84" x2="20" y2="223" stroke="#C8102E" stroke-width="1.5"/>
+  <line x1="30" y1="84" x2="30" y2="223" stroke="#FCE788" stroke-width="2"/>
+  <line x1="33" y1="84" x2="40" y2="223" stroke="#C8102E" stroke-width="1.5"/>
+  <line x1="36" y1="84" x2="48" y2="223" stroke="#6B0F0F" stroke-width="1.5"/>
+</svg>

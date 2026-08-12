@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" width="100%" height="100%">
+  <!-- Official VLU Red Shield -->
+  <g fill="#D3122A">
+    <!-- Top Bar with Dip -->
+    <path d="M 10 8 C 35 2, 85 2, 110 8 L 110 20 C 85 14, 35 14, 10 20 Z"/>
+    
+    <!-- Lower Shield Body -->
+    <path d="M 10 26 H 110 V 78 C 110 118 60 148 60 148 C 60 148 10 118 10 78 Z"/>
+  </g>
+  
+  <!-- Stylized Winged V Emblem -->
+  <g fill="#FFFFFF">
+    <!-- Center Left V stroke -->
+    <path d="M 20 45 L 60 120 L 72 120 L 36 50 Z"/>
+    <!-- Center Right Wing -->
+    <path d="M 52 75 L 102 45 L 68 62 Z"/>
+    <!-- Top Left Wing Feather -->
+    <path d="M 32 60 L 18 42 L 40 68 Z"/>
+    <path d="M 44 80 L 26 56 L 50 86 Z"/>
+  </g>
+  
+  <!-- Typography: VANLANG UNIVERSITY -->
+  <text x="140" y="76" font-family="'Montserrat', 'Helvetica Neue', 'Arial Black', sans-serif" font-weight="900" font-size="48" fill="#D3122A" letter-spacing="4">VANLANG</text>
+  <text x="175" y="126" font-family="'Montserrat', 'Helvetica Neue', 'Arial', sans-serif" font-weight="700" font-size="31" fill="#D3122A" letter-spacing="10">UNIVERSITY</text>
+</svg>
