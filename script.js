@@ -494,47 +494,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- FULLSCREEN IMAGE LIGHTBOX MODAL EVENT HANDLERS & INTERACTIVE ZOOM ---
-    const openImageModalBtn = document.getElementById('openImageModalBtn');
-    const imageLightboxModal = document.getElementById('imageLightboxModal');
-    const closeImageModalBtn = document.getElementById('closeImageModalBtn');
-    const lightboxImage = document.getElementById('lightboxImage');
 
-    if (openImageModalBtn && imageLightboxModal && closeImageModalBtn) {
-        openImageModalBtn.addEventListener('click', () => {
-            imageLightboxModal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        });
 
-        closeImageModalBtn.addEventListener('click', () => {
-            imageLightboxModal.classList.add('hidden');
-            document.body.style.overflow = '';
-            if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
-        });
-
-        if (lightboxImage) {
-            lightboxImage.addEventListener('click', (e) => {
-                e.stopPropagation();
-                lightboxImage.classList.toggle('zoomed-in');
+    // --- DEVICE VIEW MODE SWITCHER (MOBILE / DESKTOP WIDE) ---
+    const switcherBtns = document.querySelectorAll('.switcher-btn');
+    if (switcherBtns && switcherBtns.length > 0) {
+        switcherBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                switcherBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const mode = btn.getAttribute('data-mode');
+                document.body.classList.remove('view-mode-mobile', 'view-mode-wide');
+                
+                if (mode === 'mobile') {
+                    document.body.classList.add('view-mode-mobile');
+                    showToast("📱 Đã chuyển sang chế độ Khung Di Động!");
+                } else {
+                    document.body.classList.add('view-mode-wide');
+                    showToast("🖥️ Đã chuyển sang chế độ Màn Hình Rộng!");
+                }
             });
-        }
-
-        imageLightboxModal.addEventListener('click', (e) => {
-            if (e.target === imageLightboxModal) {
-                imageLightboxModal.classList.add('hidden');
-                document.body.style.overflow = '';
-                if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !imageLightboxModal.classList.contains('hidden')) {
-                imageLightboxModal.classList.add('hidden');
-                document.body.style.overflow = '';
-                if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
-            }
         });
     }
+
+    // --- AUTO-DETECT REAL MOBILE DEVICE ---
+    // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động
+    function applyAutoMobileMode() {
+        const isMobileScreen = window.innerWidth <= 768;
+        const mobileBtn = document.querySelector('.switcher-btn[data-mode="mobile"]');
+        const wideBtn = document.querySelector('.switcher-btn[data-mode="wide"]');
+
+        if (isMobileScreen) {
+            // Trên mobile thực tế: mặc định là chế độ Khung Di Động
+            if (!document.body.classList.contains('view-mode-wide')) {
+                // Chỉ tự động áp dụng nếu người dùng chưa chủ động chọn Màn Hình Rộng
+                document.body.classList.remove('view-mode-wide');
+                document.body.classList.add('view-mode-mobile');
+                if (switcherBtns.length > 0) {
+                    switcherBtns.forEach(b => b.classList.remove('active'));
+                    if (mobileBtn) mobileBtn.classList.add('active');
+                }
+            }
+        } else {
+            // Trên PC: mặc định là chế độ Màn Hình Rộng nếu chưa có class nào
+            if (!document.body.classList.contains('view-mode-mobile') &&
+                !document.body.classList.contains('view-mode-wide')) {
+                document.body.classList.add('view-mode-wide');
+                if (wideBtn) wideBtn.classList.add('active');
+            }
+        }
+    }
+
+    // Chạy khi trang load
+    applyAutoMobileMode();
 
     // Run Init
     init();

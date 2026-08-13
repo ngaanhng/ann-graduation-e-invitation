@@ -44,6 +44,21 @@
         <source src="https://drive.google.com/uc?export=download&id=1MCHZpg5RA3PkNnJ-LS4Mnb6zUZKYCRkr" type="audio/mpeg">
     </audio>
 
+    <!-- LUXURY DEVICE VIEW MODE SWITCHER (VLU BRAND IDENTITY) -->
+    <div class="device-switcher-bar" id="deviceSwitcherBar">
+        <div class="switcher-inner">
+            <span class="switcher-label"><i class="fa-solid fa-display"></i> CHẾ ĐỘ XEM:</span>
+            <div class="switcher-options">
+                <button class="switcher-btn active" data-mode="wide" title="Xem giao diện màn hình rộng trên PC">
+                    <i class="fa-solid fa-desktop"></i> Màn Hình Rộng
+                </button>
+                <button class="switcher-btn" data-mode="mobile" title="Xem giao diện khung Di Động">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Khung Di Động
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating Customizer Toggle -->
     <button class="edit-card-btn" id="openEditModalBtn" title="Xem thông tin chi tiết thiệp">
         <i class="fa-solid fa-circle-info"></i> THÔNG TIN CHI TIẾT
@@ -238,17 +253,16 @@
             <div class="campus-map-preview-block">
                 <div class="campus-map-header">
                     <h4 class="campus-map-tag"><i class="fa-solid fa-map-location-dot"></i> SƠ ĐỒ MẶT BẰNG TỔNG THỂ CAMPUS 3</h4>
-                    <span class="zoom-hint-tag"><i class="fa-solid fa-magnifying-glass-plus"></i> Bấm để phóng to xem chi tiết</span>
                 </div>
-                <div class="campus-map-img-wrapper" id="openImageModalBtn" title="Bấm vào để xem sơ đồ phóng to chất lượng HD">
+                <div class="campus-map-img-wrapper">
                     <img src="assets/vlu_campus_overview_map_hd.jpg" alt="Mặt bằng tổng thể Trường Đại học Văn Lang Cơ sở 3 HD" class="campus-overview-img">
-                    <div class="img-overlay-hover">
-                        <i class="fa-solid fa-expand"></i> Xem Sơ Đồ Phóng To (HD)
-                    </div>
                 </div>
                 <p class="campus-map-caption-below">
-                    <i class="fa-solid fa-compass"></i> Sơ Đồ Tổng Quan & Mặt Bằng Toàn Khu Trường Đại học Văn Lang (Campus 3)
+                    <i class="fa-solid fa-compass"></i> Sơ Đồ Tổng Quan &amp; Mặt Bằng Toàn Khu Trường Đại học Văn Lang (Campus 3)
                 </p>
+                <a href="https://drive.google.com/file/d/1MAAl6OLL9SCaVyWYUzQDXPvgIS1YvSD1/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-video-drive-launch" style="margin-top: 14px; max-width: 100%;">
+                    <i class="fa-solid fa-up-right-from-square"></i> Mở Xem Hình Full HD Trên Google Drive
+                </a>
             </div>
         </section>
 
@@ -417,19 +431,6 @@
                         <button type="submit" class="btn btn-gold">Lưu Cập Nhật Thiệp</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- FULLSCREEN IMAGE LIGHTBOX MODAL (HD QUALITY) -->
-    <div class="image-modal-overlay hidden" id="imageLightboxModal">
-        <div class="image-modal-content">
-            <button class="image-modal-close" id="closeImageModalBtn" title="Đóng">&times;</button>
-            <div class="image-modal-body">
-                <img src="assets/vlu_campus_overview_map_hd.jpg" onerror="this.onerror=null; this.src='https://drive.google.com/uc?export=view&id=1MAAl6OLL9SCaVyWYUzQDXPvgIS1YvSD1';" alt="Mặt bằng tổng thể Trường Đại học Văn Lang Cơ sở 3 Phóng To HD" id="lightboxImage">
-            </div>
-            <div class="image-modal-caption">
-                <i class="fa-solid fa-compass"></i> Sơ Đồ Tổng Quan & Mặt Bằng Toàn Khu Trường Đại học Văn Lang (Campus 3 - Chất Lượng Sắc Nét HD)
             </div>
         </div>
     </div>
