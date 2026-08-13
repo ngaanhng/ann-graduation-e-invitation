@@ -43,6 +43,21 @@
     padding: 0;
 }
 
+/* Utility: line breaks only visible on mobile / mobile view mode */
+.mobile-only {
+    display: none;
+}
+
+body.view-mode-mobile .mobile-only {
+    display: block !important;
+}
+
+@media (max-width: 680px) {
+    .mobile-only {
+        display: block !important;
+    }
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -54,6 +69,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     position: relative;
+    padding-top: 48px; /* Offset for fixed 48px top device switcher bar */
 }
 
 /* Ambient Background Lights & Canvas Overlay */
@@ -225,7 +241,7 @@ body {
 
 /* OFFICIAL WHITE COMBO LOGO */
 .vlu-brand-full-img {
-    height: 38px;
+    height: 50px;
     width: auto;
     object-fit: contain;
     filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
@@ -239,12 +255,12 @@ body {
 /* SECTION 1: LANDING SCREEN - GRADUATION CAP CHEVRON POSTER */
 .envelope-screen {
     min-height: calc(100vh - 48px);
-    margin-top: 48px;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 15px 30px;
+    padding: 15px 15px 30px;
     text-align: center;
     position: relative;
     z-index: 2;
@@ -252,18 +268,22 @@ body {
 }
 
 .intro-vlu-top {
-    display: inline-flex;
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 14px;
+    width: 100%;
+    max-width: 375px;
+    box-sizing: border-box;
     background: rgba(139, 30, 30, 0.45);
     border: 1.5px solid var(--color-gold);
-    padding: 8px 24px;
+    padding: 8px 16px;
     border-radius: 30px;
     color: var(--color-gold-light);
     font-size: 0.88rem;
     font-weight: 800;
     letter-spacing: 1.5px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     text-transform: uppercase;
 }
@@ -531,7 +551,7 @@ body {
 /* SECTION 2: MAIN INVITATION CARD (SHIFTED DOWN BELOW TOP SWITCHER BAR) */
 .main-invitation {
     max-width: 880px;
-    margin: 55px auto 0;
+    margin: 15px auto 0;
     padding: 15px 20px 80px;
     animation: slideUp 0.8s ease forwards;
     position: relative;
@@ -570,22 +590,67 @@ body {
 
 @media (max-width: 680px) {
     .intro-vlu-top {
-        padding: 6px 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 8px 16px;
         font-size: 0.72rem;
         letter-spacing: 1px;
-        max-width: calc(100% - 95px);
-        margin-bottom: 12px;
+        margin: 0 auto 12px;
+    }
+    .intro-vlu-top .vlu-brand-full-img {
+        height: 34px;
+        width: auto;
+        margin-left: 2px;
+        flex-shrink: 0;
     }
     .intro-vlu-top span {
-        display: none !important;
+        display: inline-block !important; /* Show full WELCOME TO NGA ANH'S GRADUATION on mobile */
+        font-size: 0.70rem;
+        letter-spacing: 0.8px;
+        white-space: nowrap;
+    }
+    .invitation-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        gap: 6px;
+        position: relative;
+    }
+    .invitation-header .brand {
+        flex-shrink: 0;
+        margin-right: 4px;
+    }
+    .invitation-header .brand .vlu-brand-full-img {
+        height: 36px;
     }
     .header-center-title {
-        display: none !important;
+        display: block !important; /* Show full WELCOME TO NGA ANH'S GRADUATION on mobile */
+        position: static !important;
+        transform: none !important;
+        font-family: 'Cinzel', 'Montserrat', serif;
+        font-size: 0.68rem !important;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: var(--color-gold-light);
+        text-transform: uppercase;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        text-align: center;
+        flex: 1;
+        margin: 0 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .audio-control-wrapper {
-        top: 14px;
-        right: 14px;
-        z-index: 150;
+        top: 54px;
+        right: 12px;
+        z-index: 10001;
     }
     .envelope-screen {
         padding-bottom: 85px;
@@ -596,11 +661,11 @@ body {
         font-size: 0.86rem;
     }
     .edit-card-btn {
-        bottom: 15px;
-        right: 15px;
-        z-index: 200;
-        font-size: 0.82rem;
-        padding: 10px 18px;
+        bottom: 12px;
+        right: 12px;
+        z-index: 10001;
+        font-size: 0.76rem;
+        padding: 8px 14px;
     }
     .main-invitation {
         padding: 10px 14px 90px;
@@ -1095,16 +1160,22 @@ body {
     transform: translateZ(0); /* GPU compositing layer for proper border-radius clipping */
 }
 
-.drive-video-frame-box.landscape-video,
-.drive-video-frame-box.vertical-video {
+.drive-video-frame-box,
+.drive-video-frame-box.vertical-video,
+.drive-video-frame-box.landscape-video {
+    width: 100%;
     max-width: 320px;
     aspect-ratio: 9 / 16;
+    margin: 0 auto;
 }
 
 @media (max-width: 680px) {
-    .drive-video-frame-box {
-        max-width: min(320px, calc(100vw - 40px));
-        aspect-ratio: 9 / 16;
+    .drive-video-frame-box,
+    .drive-video-frame-box.vertical-video,
+    .drive-video-frame-box.landscape-video {
+        width: min(320px, calc(100% - 12px)) !important;
+        max-width: 320px !important;
+        aspect-ratio: 9 / 16 !important;
         margin: 0 auto;
     }
 }
@@ -1876,7 +1947,7 @@ body.view-mode-mobile .invitation-footer {
 
     /* Thêm khoảng trống bên dưới thanh cố định */
     body {
-        padding-top: 55px !important;
+        padding-top: 48px !important;
     }
 
     /* Video container: đủ rộng để Drive player hiển thị tất cả nút điều khiển */
@@ -1923,7 +1994,7 @@ body.view-mode-mobile .invitation-footer {
 
 body.view-mode-mobile {
     background: #0B0103;
-    padding-top: 55px;
+    padding-top: 48px;
 }
 
 body.view-mode-mobile .device-switcher-bar {
@@ -1931,19 +2002,28 @@ body.view-mode-mobile .device-switcher-bar {
 }
 
 body.view-mode-mobile .audio-control-wrapper {
-    top: 60px !important;
-    right: 20px !important;
+    top: 54px !important;
+    right: 12px !important;
+    z-index: 10001 !important;
+}
+
+body.view-mode-mobile .edit-card-btn {
+    bottom: 12px !important;
+    right: 12px !important;
+    z-index: 10001 !important;
+    font-size: 0.75rem !important;
+    padding: 8px 14px !important;
 }
 
 /* Màn hình bìa thiệp (phong bì) */
 body.view-mode-mobile .envelope-screen {
     max-width: 390px !important;
     width: 100% !important;
-    margin: 55px auto 40px !important;
+    margin: 15px auto 40px !important;
     border: 3px solid #C59B27 !important;
     border-radius: 28px !important;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-    background: #EFE6D5 !important;
+    background: #0B0103 !important;
     overflow-x: hidden !important;
     box-sizing: border-box !important;
 }
@@ -1952,24 +2032,74 @@ body.view-mode-mobile .envelope-screen {
 body.view-mode-mobile .main-invitation {
     max-width: 390px !important;
     width: 100% !important;
-    margin: 20px auto 40px !important;
+    margin: 15px auto 40px !important;
     padding: 8px 10px 80px !important;
     border: 3px solid #C59B27 !important;
     border-radius: 28px !important;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-    background: #EFE6D5 !important;
+    background: #0B0103 !important;
     overflow-x: hidden !important;
     box-sizing: border-box !important;
 }
 
 /* Header VLU logo bar bên trong thiệp */
 body.view-mode-mobile .invitation-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
     padding: 10px 0 !important;
+    gap: 6px !important;
     margin-bottom: 18px !important;
 }
 
+body.view-mode-mobile .invitation-header .brand {
+    flex-shrink: 0 !important;
+    margin-right: 4px !important;
+}
+
+body.view-mode-mobile .invitation-header .brand .vlu-brand-full-img {
+    height: 36px !important;
+}
+
+body.view-mode-mobile .intro-vlu-top {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 8px 16px !important;
+    margin: 0 auto 14px !important;
+}
+
+body.view-mode-mobile .intro-vlu-top .vlu-brand-full-img {
+    height: 34px !important;
+    margin-left: 2px !important;
+    flex-shrink: 0 !important;
+}
+
+body.view-mode-mobile .intro-vlu-top span {
+    display: inline-block !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.7px !important;
+    white-space: normal !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+}
+
 body.view-mode-mobile .header-center-title {
-    display: none !important;
+    display: block !important;
+    position: static !important;
+    transform: none !important;
+    font-size: 0.65rem !important;
+    letter-spacing: 0.7px !important;
+    text-align: center !important;
+    flex: 1 !important;
+    margin: 0 4px !important;
+    white-space: normal !important;
+    line-height: 1.5 !important;
+    overflow: visible !important;
 }
 
 /* ---- CÁC CARD SECTION: padding thu gọn ---- */
@@ -2053,12 +2183,13 @@ body.view-mode-mobile .video-card-container {
     gap: 22px !important;
 }
 
-body.view-mode-mobile .drive-video-frame-box {
-    /* Dùng chiều rộng responsive, tối thiểu đủ để Drive player hiển thị đủ 4 nút điều khiển */
-    width: min(320px, calc(100% - 16px)) !important;
+body.view-mode-mobile .drive-video-frame-box,
+body.view-mode-mobile .drive-video-frame-box.landscape-video,
+body.view-mode-mobile .drive-video-frame-box.vertical-video {
+    width: min(320px, calc(100% - 12px)) !important;
     max-width: 320px !important;
     aspect-ratio: 9 / 16 !important;
-    height: auto !important;           /* Để aspect-ratio tự tính chiều cao */
+    height: auto !important;
     margin: 0 auto !important;
     overflow: hidden !important;
     border-radius: 14px !important;
