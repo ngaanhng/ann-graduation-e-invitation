@@ -546,6 +546,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- FULLSCREEN VIDEO EXPAND TOGGLE FOR MOBILE (IPHONE / SAMSUNG) ---
+    document.querySelectorAll('.btn-expand-video-touch').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const frameBox = btn.closest('.drive-video-frame-box');
+            if (frameBox) {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (frameBox.requestFullscreen) {
+                        frameBox.requestFullscreen();
+                    } else if (frameBox.webkitRequestFullscreen) {
+                        frameBox.webkitRequestFullscreen();
+                    } else if (frameBox.msRequestFullscreen) {
+                        frameBox.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+            }
+        });
+    });
+
     // Chạy khi trang load
     applyAutoMobileMode();
 

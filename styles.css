@@ -347,29 +347,21 @@ body {
 
 @media (max-width: 1380px) {
     .main-sash-ribbon {
-        right: auto;
-        left: 25px;
-        height: 520px;
-    }
-}
-
-@media (max-width: 1080px) {
-    .main-sash-ribbon {
-        display: none; /* Hide on narrower screens to prevent overlapping central cards */
+        display: none !important; /* Hide on iPad / tablets / small screens in wide mode to prevent covering invitation text */
     }
 }
 
 @media (max-width: 1100px) {
     .cover-sash-ribbon {
-        left: auto;
-        right: 40px;
+        left: calc(50% + 210px);
+        right: auto;
         height: 540px;
     }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 750px) {
     .cover-sash-ribbon {
-        display: none; /* Hide on narrow mobile screens to prevent overlapping center poster */
+        display: none !important; /* Hide on narrow mobile screens to prevent overlapping center poster */
     }
 }
 
@@ -603,16 +595,18 @@ body {
         margin: 0 auto 12px;
     }
     .intro-vlu-top .vlu-brand-full-img {
-        height: 34px;
+        height: 28px;
         width: auto;
         margin-left: 2px;
         flex-shrink: 0;
     }
     .intro-vlu-top span {
-        display: inline-block !important; /* Show full WELCOME TO NGA ANH'S GRADUATION on mobile */
-        font-size: 0.70rem;
+        display: inline-block !important;
+        font-size: 0.68rem;
         letter-spacing: 0.8px;
-        white-space: nowrap;
+        line-height: 1.35;
+        white-space: normal;
+        text-align: left;
     }
     .invitation-header {
         display: flex;
@@ -648,7 +642,7 @@ body {
         text-overflow: ellipsis;
     }
     .audio-control-wrapper {
-        top: 54px;
+        top: 110px;
         right: 12px;
         z-index: 10001;
     }
@@ -1157,27 +1151,46 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     border: 1.5px solid rgba(197, 155, 39, 0.4);
     margin: 0 auto;
-    transform: translateZ(0); /* GPU compositing layer for proper border-radius clipping */
 }
 
-.drive-video-frame-box,
-.drive-video-frame-box.vertical-video,
-.drive-video-frame-box.landscape-video {
+.btn-expand-video-touch {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 3, 6, 0.82);
+    color: #FCE788;
+    border: 1.2px solid #C59B27;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+}
+
+.btn-expand-video-touch:hover,
+.btn-expand-video-touch:active {
+    background: var(--color-crimson-main);
+    color: #FFFFFF;
+    transform: scale(1.05);
+}
+
+.drive-video-frame-box iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 320px;
-    aspect-ratio: 9 / 16;
-    margin: 0 auto;
-}
-
-@media (max-width: 680px) {
-    .drive-video-frame-box,
-    .drive-video-frame-box.vertical-video,
-    .drive-video-frame-box.landscape-video {
-        width: min(320px, calc(100% - 12px)) !important;
-        max-width: 320px !important;
-        aspect-ratio: 9 / 16 !important;
-        margin: 0 auto;
-    }
+    height: 100%;
+    border: 0;
+    display: block;
+    pointer-events: auto !important;
 }
 
 .drive-video-frame-box iframe {
@@ -1571,7 +1584,7 @@ body.view-mode-mobile .invitation-footer {
     height: 100%;
     background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(8px);
-    z-index: 1000;
+    z-index: 20000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1949,6 +1962,43 @@ body.view-mode-mobile .invitation-footer {
     body {
         padding-top: 48px !important;
     }
+}
+
+@media (max-width: 600px) {
+    .device-switcher-bar {
+        padding: 0 6px !important;
+        height: 44px !important;
+        justify-content: center !important;
+    }
+
+    .switcher-inner {
+        gap: 4px !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .switcher-label {
+        display: none !important; /* Hide label on mobile to give buttons full width */
+    }
+
+    .switcher-options {
+        width: 100% !important;
+        max-width: 360px !important;
+        justify-content: space-around !important;
+        padding: 3px 4px !important;
+        gap: 4px !important;
+    }
+
+    .switcher-btn {
+        padding: 5px 8px !important;
+        font-size: 0.70rem !important;
+        gap: 4px !important;
+        flex: 1 !important;
+        justify-content: center !important;
+        text-align: center !important;
+        letter-spacing: 0 !important;
+    }
+}
 
     /* Video container: đủ rộng để Drive player hiển thị tất cả nút điều khiển */
     .drive-video-frame-box {
@@ -2002,7 +2052,7 @@ body.view-mode-mobile .device-switcher-bar {
 }
 
 body.view-mode-mobile .audio-control-wrapper {
-    top: 54px !important;
+    top: 110px !important;
     right: 12px !important;
     z-index: 10001 !important;
 }
@@ -2013,6 +2063,25 @@ body.view-mode-mobile .edit-card-btn {
     z-index: 10001 !important;
     font-size: 0.75rem !important;
     padding: 8px 14px !important;
+}
+
+/* Graduation Sash Ribbon positioning in Mobile View Mode: placed safely outside to the right of the 390px frame */
+body.view-mode-mobile .main-sash-ribbon,
+body.view-mode-mobile .cover-sash-ribbon {
+    position: fixed !important;
+    top: 68px !important;
+    left: calc(50% + 215px) !important;
+    right: auto !important;
+    height: 520px !important;
+    z-index: 10 !important;
+    display: block !important;
+}
+
+@media (max-width: 650px) {
+    body.view-mode-mobile .main-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon {
+        display: none !important;
+    }
 }
 
 /* Màn hình bìa thiệp (phong bì) */
@@ -2074,17 +2143,17 @@ body.view-mode-mobile .intro-vlu-top {
 }
 
 body.view-mode-mobile .intro-vlu-top .vlu-brand-full-img {
-    height: 34px !important;
+    height: 26px !important;
     margin-left: 2px !important;
     flex-shrink: 0 !important;
 }
 
 body.view-mode-mobile .intro-vlu-top span {
     display: inline-block !important;
-    font-size: 0.65rem !important;
+    font-size: 0.64rem !important;
     letter-spacing: 0.7px !important;
     white-space: normal !important;
-    line-height: 1.5 !important;
+    line-height: 1.35 !important;
     text-align: left !important;
 }
 
