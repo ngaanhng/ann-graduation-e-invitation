@@ -494,10 +494,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // --- FULLSCREEN IMAGE LIGHTBOX MODAL EVENT HANDLERS ---
+    // --- FULLSCREEN IMAGE LIGHTBOX MODAL EVENT HANDLERS & INTERACTIVE ZOOM ---
     const openImageModalBtn = document.getElementById('openImageModalBtn');
     const imageLightboxModal = document.getElementById('imageLightboxModal');
     const closeImageModalBtn = document.getElementById('closeImageModalBtn');
+    const lightboxImage = document.getElementById('lightboxImage');
 
     if (openImageModalBtn && imageLightboxModal && closeImageModalBtn) {
         openImageModalBtn.addEventListener('click', () => {
@@ -508,12 +509,21 @@ document.addEventListener('DOMContentLoaded', () => {
         closeImageModalBtn.addEventListener('click', () => {
             imageLightboxModal.classList.add('hidden');
             document.body.style.overflow = '';
+            if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
         });
+
+        if (lightboxImage) {
+            lightboxImage.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImage.classList.toggle('zoomed-in');
+            });
+        }
 
         imageLightboxModal.addEventListener('click', (e) => {
             if (e.target === imageLightboxModal) {
                 imageLightboxModal.classList.add('hidden');
                 document.body.style.overflow = '';
+                if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
             }
         });
 
@@ -521,6 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Escape' && !imageLightboxModal.classList.contains('hidden')) {
                 imageLightboxModal.classList.add('hidden');
                 document.body.style.overflow = '';
+                if (lightboxImage) lightboxImage.classList.remove('zoomed-in');
             }
         });
     }

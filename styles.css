@@ -567,17 +567,43 @@ body {
     pointer-events: none;
 }
 
+/* MOBILE & TABLET RESPONSIVE OVERLAP FIXES */
 @media (max-width: 680px) {
-    .header-center-title {
+    .intro-vlu-top {
+        padding: 6px 14px;
         font-size: 0.72rem;
         letter-spacing: 1px;
+        max-width: calc(100% - 95px);
+        margin-bottom: 12px;
     }
-}
-
-@media (max-width: 480px) {
+    .intro-vlu-top span {
+        display: none; /* Hide long center span text inside intro-vlu-top on mobile so logo & music button NEVER overlap */
+    }
     .header-center-title {
-        font-size: 0.65rem;
-        letter-spacing: 0.5px;
+        display: none; /* Hide duplicate absolute header center text on mobile so logo & music button NEVER overlap */
+    }
+    .audio-control-wrapper {
+        top: 14px;
+        right: 14px;
+        z-index: 150;
+    }
+    .envelope-screen {
+        padding-bottom: 85px;
+    }
+    .tap-hint {
+        margin-top: 10px;
+        margin-bottom: 75px; /* Push tap hint UP so it sits 100% clearly ABOVE the gold button! */
+        font-size: 0.86rem;
+    }
+    .edit-card-btn {
+        bottom: 15px;
+        right: 15px;
+        z-index: 200;
+        font-size: 0.82rem;
+        padding: 10px 18px;
+    }
+    .main-invitation {
+        padding: 10px 14px 90px;
     }
 }
 
@@ -1054,47 +1080,83 @@ body {
     border-top: none;
 }
 
-/* Standard 9:16 Vertical Aspect Ratio Responsive Wrapper */
-.responsive-video-wrapper {
-    position: relative;
+/* NATIVE GOOGLE DRIVE VIDEO FRAME CONTAINER */
+.drive-video-frame-box {
     width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-    padding-bottom: 177.78%; /* 9:16 Aspect Ratio (16 / 9 = 1.7778) */
-    height: 0;
-    overflow: hidden;
-    border-radius: 20px;
-    border: 2.5px solid #DFD5C5;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-    background: #000000;
-}
-
-/* 16:9 Landscape Aspect Ratio Modifier for Non-Parking Video Frame */
-.responsive-video-wrapper.video-16-9 {
-    max-width: 680px;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625) */
+    position: relative;
     border-radius: 16px;
+    overflow: hidden;
+    background: #000000;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    border: 1.5px solid rgba(197, 155, 39, 0.35);
 }
 
-.responsive-video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+.drive-video-frame-box.landscape-video {
+    max-width: 720px;
+    aspect-ratio: 16 / 9;
+}
+
+.drive-video-frame-box.vertical-video {
+    max-width: 360px;
+    aspect-ratio: 9 / 16;
+    margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+    .drive-video-frame-box.vertical-video {
+        max-width: 100%;
+        aspect-ratio: 3 / 4; /* On mobile phones, 3/4 aspect ratio expands width so Google Drive player controls never cut off gear setting icon! */
+    }
+}
+
+.drive-video-frame-box iframe {
     width: 100%;
     height: 100%;
     border: 0;
+    display: block;
+}
+
+/* DIRECT GOOGLE DRIVE LAUNCH BUTTON FOR 100% UNRESTRICTED FULL FEATURE PLAYER */
+.btn-video-drive-launch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 360px;
+    margin-top: 12px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%);
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 800;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(139, 30, 30, 0.35);
+    transition: all 0.25s ease;
+    border: 1.5px solid var(--color-gold);
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+.btn-video-drive-launch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(139, 30, 30, 0.5);
+    background: linear-gradient(135deg, #A02020 0%, #C8102E 100%);
+    color: #FFFFFF;
 }
 
 .video-caption-text {
     font-size: 0.9rem;
     color: #5C4343;
-    margin-top: 14px;
+    margin-top: 10px;
     line-height: 1.6;
     display: flex;
     align-items: flex-start;
     gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
     text-align: left;
 }
 
@@ -1106,6 +1168,17 @@ body {
     color: #C59B27;
     margin-top: 3px;
     font-size: 1.1rem;
+}
+
+@media (max-width: 680px) {
+    .btn-video-drive-launch {
+        max-width: 100%;
+        font-size: 0.88rem;
+        padding: 11px 14px;
+    }
+    .video-caption-text {
+        max-width: 100%;
+    }
 }
 
 /* Location Section */
@@ -1238,7 +1311,7 @@ body {
     border: 2px solid #DFD5C5;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    background: #000000;
+    background: #FFFFFF; /* Pure White background for clean natural map aspect ratio */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1250,16 +1323,33 @@ body {
 .campus-overview-img {
     width: 100%;
     height: auto;
-    max-height: 480px;
-    object-fit: cover;
-    object-position: top center;
+    object-fit: contain;
     display: block;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
+.campus-map-caption-below {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #8B1E1E;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.campus-map-caption-below i {
+    color: #C59B27;
+    font-size: 1.1rem;
+}
+
 .campus-map-img-wrapper:hover .campus-overview-img {
-    transform: scale(1.03);
-    filter: brightness(0.85);
+    transform: scale(1.02);
+    filter: brightness(0.9);
 }
 
 .img-overlay-hover {
@@ -1338,20 +1428,27 @@ body {
 
 .image-modal-body {
     max-width: 100%;
-    max-height: 80vh;
+    max-height: 82vh;
     overflow: auto;
     border-radius: 16px;
     border: 2px solid var(--color-gold);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
-    background: #000;
+    background: #000000;
 }
 
 .image-modal-body img {
     width: 100%;
     height: auto;
     display: block;
-    max-height: 80vh;
+    max-height: 82vh;
     object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.image-modal-body img.zoomed-in {
+    transform: scale(2.2);
+    cursor: zoom-out;
 }
 
 .image-modal-caption {
@@ -1385,15 +1482,18 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.88);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .modal-card {
@@ -1407,6 +1507,8 @@ body {
     flex-direction: column;
     box-shadow: var(--shadow-card);
     animation: modalPop 0.3s ease;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 @keyframes modalPop {
@@ -1420,6 +1522,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .modal-header h3 {
@@ -1446,19 +1549,39 @@ body {
 }
 
 .modal-body {
-    padding: 25px;
+    padding: 22px 20px;
     overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 14px 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (max-width: 600px) {
+    .modal-overlay {
+        padding: 8px;
+    }
+    .modal-card {
+        border-radius: 16px;
+        max-height: 94vh;
+    }
+    .modal-header {
+        padding: 14px 16px;
+    }
+    .modal-header h3 {
+        font-size: 1.05rem;
+    }
+    .modal-body {
+        padding: 16px 12px;
+    }
     .form-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
     }
 }
 
