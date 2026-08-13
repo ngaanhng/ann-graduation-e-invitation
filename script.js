@@ -549,11 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FULLSCREEN VIDEO EXPAND/MINIMIZE TOGGLE FOR ALL PLATFORMS ---
     function updateVideoExpandButtonState() {
         const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+        let isAnyFullscreen = false;
+
         document.querySelectorAll('.btn-expand-video-touch').forEach(btn => {
             const frameBox = btn.closest('.drive-video-frame-box');
             if (!frameBox) return;
             const isFullscreen = (fsEl && (fsEl === frameBox || frameBox.contains(fsEl))) || frameBox.classList.contains('is-custom-fullscreen');
             if (isFullscreen) {
+                isAnyFullscreen = true;
                 btn.innerHTML = '<i class="fa-solid fa-compress"></i> Thu Nhỏ';
                 btn.title = 'Thu nhỏ video về kích thước ban đầu';
                 btn.classList.add('is-expanded');
@@ -563,6 +566,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('is-expanded');
             }
         });
+
+        if (isAnyFullscreen) {
+            document.body.classList.add('video-fullscreen-active');
+        } else {
+            document.body.classList.remove('video-fullscreen-active');
+        }
     }
 
     document.querySelectorAll('.btn-expand-video-touch').forEach(btn => {
