@@ -546,29 +546,115 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- FULLSCREEN VIDEO EXPAND TOGGLE FOR MOBILE (IPHONE / SAMSUNG) ---
+    // --- FULLSCREEN VIDEO EXPAND/MINIMIZE TOGGLE FOR ALL PLATFORMS ---
+    function updateVideoExpandButtonState() {
+        const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+        document.querySelectorAll('.btn-expand-video-touch').forEach(btn => {
+            const frameBox = btn.closest('.drive-video-frame-box');
+            if (!frameBox) return;
+            const isFullscreen = (fsEl && (fsEl === frameBox || frameBox.contains(fsEl))) || frameBox.classList.contains('is-custom-fullscreen');
+            if (isFullscreen) {
+                btn.innerHTML = '<i class="fa-solid fa-compress"></i> Thu Nhỏ';
+                btn.title = 'Thu nhỏ video về kích thước ban đầu';
+                btn.classList.add('is-expanded');
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-expand"></i> Phóng To';
+                btn.title = 'Phóng to full màn hình';
+                btn.classList.remove('is-expanded');
+            }
+        });
+    }
+
     document.querySelectorAll('.btn-expand-video-touch').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const frameBox = btn.closest('.drive-video-frame-box');
-            if (frameBox) {
-                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-                    if (frameBox.requestFullscreen) {
-                        frameBox.requestFullscreen();
-                    } else if (frameBox.webkitRequestFullscreen) {
-                        frameBox.webkitRequestFullscreen();
-                    } else if (frameBox.msRequestFullscreen) {
-                        frameBox.msRequestFullscreen();
-                    }
-                } else {
+            if (!frameBox) return;
+
+            const isCustomFs = frameBox.classList.contains('is-custom-fullscreen');
+            const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+            const isNativeFs = (fsEl && (fsEl === frameBox || frameBox.contains(fsEl)));
+
+            if (isNativeFs || isCustomFs) {
+                // Đang phóng to -> Thực hiện THU NHỎ
+                if (isCustomFs) {
+                    frameBox.classList.remove('is-custom-fullscreen');
+                }
+                if (isNativeFs) {
                     if (document.exitFullscreen) {
-                        document.exitFullscreen();
+                        document.exitFullscreen().catch(() => {});
                     } else if (document.webkitExitFullscreen) {
                         document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
                     }
+                }
+                updateVideoExpandButtonState();
+            } else {
+                // Đang thu nhỏ -> Thực hiện PHÓNG TO
+                if (frameBox.requestFullscreen) {
+                    frameBox.requestFullscreen().catch(() => {
+                        frameBox.classList.add('is-custom-fullscreen');
+                        updateVideoExpandButtonState();
+                    });
+                } else if (frameBox.webkitRequestFullscreen) {
+                    try {
+                        frameBox.webkitRequestFullscreen();
+                    } catch(err) {
+                        frameBox.classList.add('is-custom-fullscreen');
+                        updateVideoExpandButtonState();
+                    }
+                } else if (frameBox.msRequestFullscreen) {
+                    frameBox.msRequestFullscreen();
+                } else {
+                    frameBox.classList.add('is-custom-fullscreen');
+                    updateVideoExpandButtonState();
                 }
             }
         });
+    });
+
+    // --- CLOSE / STOP VIDEO BUTTON HANDLER ---
+    document.querySelectorAll('.btn-close-video-touch').forEach(closeBtn => {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const frameBox = closeBtn.closest('.drive-video-frame-box');
+            if (!frameBox) return;
+
+            // Nếu đang phóng to, thoát phóng to ngay
+            const isCustomFs = frameBox.classList.contains('is-custom-fullscreen');
+            const fsEl = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+            const isNativeFs = (fsEl && (fsEl === frameBox || frameBox.contains(fsEl)));
+
+            if (isCustomFs) {
+                frameBox.classList.remove('is-custom-fullscreen');
+            }
+            if (isNativeFs) {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            }
+
+            // Tắt / dừng video bằng cách reset lại iframe
+            const iframe = frameBox.querySelector('iframe');
+            if (iframe) {
+                const currentSrc = iframe.src;
+                iframe.src = '';
+                setTimeout(() => {
+                    iframe.src = currentSrc;
+                }, 50);
+            }
+
+            updateVideoExpandButtonState();
+        });
+    });
+
+    ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(evtName => {
+        document.addEventListener(evtName, updateVideoExpandButtonState);
     });
 
     // Chạy khi trang load
