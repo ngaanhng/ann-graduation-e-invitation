@@ -521,6 +521,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- AUTO-DETECT REAL MOBILE DEVICE ---
     // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động và khóa lại
     function applyAutoMobileMode() {
+        const isAndroid = /Android|Samsung|Linux arm/i.test(navigator.userAgent) || 
+                          (!/iPhone|iPad|iPod/i.test(navigator.userAgent) && (('ontouchstart' in window) || navigator.maxTouchPoints > 0) && !navigator.userAgent.includes('Macintosh') && !navigator.userAgent.includes('Windows'));
+        if (isAndroid) {
+            document.body.classList.add('is-samsung-android');
+        } else {
+            document.body.classList.remove('is-samsung-android');
+        }
+
         const isSmallMobilePortrait = window.innerWidth <= 680;
         const isMobileLandscape = (window.innerHeight <= 650 && window.innerWidth <= 1050 && window.innerWidth > window.innerHeight) && 
                                   (('ontouchstart' in window) || navigator.maxTouchPoints > 0) &&
