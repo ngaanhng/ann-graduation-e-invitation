@@ -1542,47 +1542,6 @@ body.is-ipad .mobile-video-overlay-link {
     font-size: 1.1rem;
 }
 
-/* DEDICATED BUTTON TO OPEN CAMPUS MAP ON GOOGLE DRIVE (VISIBLE ON BOTH MOBILE & DESKTOP) */
-.btn-campus-map-drive-launch {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    max-width: 100%;
-    margin-top: 14px;
-    padding: 12px 18px;
-    background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%);
-    color: #FFFFFF !important;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 800;
-    border-radius: 14px;
-    text-decoration: none !important;
-    box-shadow: 0 6px 18px rgba(139, 30, 30, 0.35);
-    transition: all 0.25s ease;
-    border: 1.5px solid var(--color-gold);
-    letter-spacing: 0.3px;
-    text-align: center;
-    box-sizing: border-box;
-}
-
-.btn-campus-map-drive-launch:hover,
-.btn-campus-map-drive-launch:active {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 30, 30, 0.5);
-    background: linear-gradient(135deg, #A02020 0%, #C8102E 100%);
-    color: #FFFFFF !important;
-}
-
-@media (max-width: 680px) {
-    .btn-campus-map-drive-launch {
-        font-size: 0.82rem !important;
-        padding: 10px 14px !important;
-        border-radius: 12px !important;
-    }
-}
-
 .campus-map-img-wrapper:hover .campus-overview-img {
     transform: scale(1.02);
     filter: brightness(0.9);
@@ -2138,7 +2097,8 @@ body.view-mode-mobile .edit-card-btn {
     padding: 8px 14px !important;
 }
 
-/* KHI XEM KHUNG DI ĐỘNG TRÊN LAPTOP/PC (MÀN HÌNH LỚN): hiện khung viền vàng giả lập điện thoại */
+/* KHI XEM KHUNG DI ĐỘNG TRÊN LAPTOP/PC/IPAD:
+   Đồng bộ 100% với giao diện trên mobile (bỏ khung viền vàng giả lập, hiển thị nội dung thiệp chuẩn) */
 @media (min-width: 681px) and (min-height: 521px) {
     body.view-mode-mobile {
         padding-top: 48px;
@@ -2149,27 +2109,27 @@ body.view-mode-mobile .edit-card-btn {
     }
 
     body.view-mode-mobile .envelope-screen {
-        max-width: 390px !important;
+        max-width: 440px !important;
         width: 100% !important;
         margin: 15px auto 40px !important;
-        border: 3px solid #C59B27 !important;
-        border-radius: 28px !important;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-        background: #0B0103 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
         position: relative !important;
         overflow: visible !important;
         box-sizing: border-box !important;
     }
 
     body.view-mode-mobile .main-invitation {
-        max-width: 390px !important;
+        max-width: 440px !important;
         width: 100% !important;
         margin: 15px auto 40px !important;
-        padding: 8px 10px 80px !important;
-        border: 3px solid #C59B27 !important;
-        border-radius: 28px !important;
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-        background: #0B0103 !important;
+        padding: 10px 14px 80px !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: transparent !important;
         position: relative !important;
         overflow: visible !important;
         box-sizing: border-box !important;
@@ -2179,7 +2139,7 @@ body.view-mode-mobile .edit-card-btn {
     body.view-mode-mobile .cover-sash-ribbon {
         position: absolute !important;
         top: 0px !important;
-        left: calc(100% + 12px) !important;
+        left: calc(100% + 14px) !important;
         right: auto !important;
         height: 420px !important;
         z-index: 10 !important;
