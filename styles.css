@@ -2115,75 +2115,13 @@ body.view-mode-mobile .invitation-footer {
     }
 }
 
-@media (max-width: 680px) {
-    /* Ẩn hoàn toàn khung chế độ xem trên giao diện mobile */
-    .device-switcher-bar {
-        display: none !important;
-    }
-
-    body {
-        padding-top: 0 !important;
-    }
-
-    body.view-mode-mobile {
-        padding-top: 0 !important;
-    }
-
-    /* Video container trên mobile */
-    .drive-video-frame-box:not(.is-custom-fullscreen) {
-        width: min(320px, 90vw) !important;
-        max-width: 320px !important;
-        aspect-ratio: 9 / 16 !important;
-        margin: 0 auto !important;
-        overflow: hidden !important;
-    }
-
-    /* Trên mobile thực tế: bỏ khung viền vàng giả điện thoại, nội dung full width */
-    body.view-mode-mobile .envelope-screen {
-        max-width: 100% !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        margin: 0 auto 20px !important;
-        padding-bottom: 80px !important;
-    }
-
-    body.view-mode-mobile .main-invitation {
-        max-width: 100% !important;
-        border: none !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        margin: 0 auto !important;
-        padding: 8px 12px 80px !important;
-    }
-
-    /* Khi xem Màn Hình Rộng trên mobile */
-    body.view-mode-wide .main-invitation {
-        max-width: 100% !important;
-        padding: 8px 12px 80px !important;
-    }
-}
-
-/* Khi xem Màn Hình Rộng trên Desktop/Laptop: khung 860px to rõ, dài đẹp */
-body.view-mode-wide .main-invitation {
-    max-width: 860px !important;
-    margin: 15px auto 0 !important;
-    padding: 15px 20px 80px !important;
-}
-
 /* ===================================================
    VIEW MODE: KHUNG DI ĐỘNG — FULL MOBILE LAYOUT ON PC
-   Giống như xem trên điện thoại thật, 1 cột gọn gàng,
-   không tràn, không che khuất bất kỳ chi tiết nào
+   Chỉ giả lập khung viền vàng 390px trên Laptop / PC màn hình lớn
    =================================================== */
 
 body.view-mode-mobile {
     background: #0B0103;
-    padding-top: 48px;
-}
-
-body.view-mode-mobile .device-switcher-bar {
-    display: flex !important;
 }
 
 body.view-mode-mobile .audio-control-wrapper {
@@ -2200,16 +2138,110 @@ body.view-mode-mobile .edit-card-btn {
     padding: 8px 14px !important;
 }
 
-/* Graduation Sash Ribbon positioning in Mobile View Mode: scrolls with the 390px frame and scaled down for clear viewing */
-body.view-mode-mobile .main-sash-ribbon,
-body.view-mode-mobile .cover-sash-ribbon {
-    position: absolute !important;
-    top: 0px !important;
-    left: calc(100% + 12px) !important;
-    right: auto !important;
-    height: 420px !important;
-    z-index: 10 !important;
-    display: block !important;
+/* KHI XEM KHUNG DI ĐỘNG TRÊN LAPTOP/PC (MÀN HÌNH LỚN): hiện khung viền vàng giả lập điện thoại */
+@media (min-width: 681px) and (min-height: 521px) {
+    body.view-mode-mobile {
+        padding-top: 48px;
+    }
+
+    body.view-mode-mobile .device-switcher-bar {
+        display: flex !important;
+    }
+
+    body.view-mode-mobile .envelope-screen {
+        max-width: 390px !important;
+        width: 100% !important;
+        margin: 15px auto 40px !important;
+        border: 3px solid #C59B27 !important;
+        border-radius: 28px !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
+        background: #0B0103 !important;
+        position: relative !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    body.view-mode-mobile .main-invitation {
+        max-width: 390px !important;
+        width: 100% !important;
+        margin: 15px auto 40px !important;
+        padding: 8px 10px 80px !important;
+        border: 3px solid #C59B27 !important;
+        border-radius: 28px !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
+        background: #0B0103 !important;
+        position: relative !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+    }
+
+    body.view-mode-mobile .main-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon {
+        position: absolute !important;
+        top: 0px !important;
+        left: calc(100% + 12px) !important;
+        right: auto !important;
+        height: 420px !important;
+        z-index: 10 !important;
+        display: block !important;
+    }
+}
+
+/* ===================================================
+   TRÊN MOBILE THẬT (CẢ MÀN HÌNH DỌC VÀ XOAY NGANG):
+   - XÓA HOÀN TOÀN THANH CHẾ ĐỘ XEM TRÊN ĐẦU
+   - XÓA HOÀN TOÀN KHUNG VIỀN VÀNG GIẢ ĐIỆN THOẠI
+   - HIỂN THỊ NỘI DUNG TỰ NHIÊN, TRÀN VIỀN
+   =================================================== */
+@media (max-width: 680px), (max-height: 520px) and (orientation: landscape) and (max-width: 1000px) {
+    .device-switcher-bar {
+        display: none !important;
+    }
+
+    body,
+    body.view-mode-mobile,
+    body.view-mode-wide {
+        padding-top: 0 !important;
+    }
+
+    .envelope-screen,
+    body.view-mode-mobile .envelope-screen,
+    body.view-mode-wide .envelope-screen {
+        max-width: 100% !important;
+        width: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        padding-bottom: 80px !important;
+    }
+
+    .main-invitation,
+    body.view-mode-mobile .main-invitation,
+    body.view-mode-wide .main-invitation {
+        max-width: 100% !important;
+        width: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        margin: 0 auto !important;
+        padding: 10px 14px 80px !important;
+    }
+
+    .intro-vlu-top,
+    body.view-mode-mobile .intro-vlu-top {
+        border-radius: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Video container trên mobile */
+    .drive-video-frame-box:not(.is-custom-fullscreen) {
+        width: min(320px, 90vw) !important;
+        max-width: 320px !important;
+        aspect-ratio: 9 / 16 !important;
+        margin: 0 auto !important;
+        overflow: hidden !important;
+    }
 }
 
 /* KHI Ở MÀN HÌNH DỌC TRÊN MOBILE: ẨN SASH ĐI */
@@ -2223,7 +2255,7 @@ body.view-mode-mobile .cover-sash-ribbon {
 }
 
 /* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE: HIỆN SASH ĐỒNG BỘ */
-@media (max-height: 520px) and (orientation: landscape), (min-width: 501px) and (max-width: 950px) and (orientation: landscape) {
+@media (max-height: 520px) and (orientation: landscape) and (max-width: 1000px) {
     body.view-mode-mobile .main-sash-ribbon,
     body.view-mode-mobile .cover-sash-ribbon,
     .main-sash-ribbon,
@@ -2238,33 +2270,13 @@ body.view-mode-mobile .cover-sash-ribbon {
     }
 }
 
-/* Màn hình bìa thiệp (phong bì) */
-body.view-mode-mobile .envelope-screen {
-    max-width: 390px !important;
-    width: 100% !important;
-    margin: 15px auto 40px !important;
-    border: 3px solid #C59B27 !important;
-    border-radius: 28px !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-    background: #0B0103 !important;
-    position: relative !important;
-    overflow: visible !important;
-    box-sizing: border-box !important;
-}
-
-/* Khung nội dung chính thiệp mời */
-body.view-mode-mobile .main-invitation {
-    max-width: 390px !important;
-    width: 100% !important;
-    margin: 15px auto 40px !important;
-    padding: 8px 10px 80px !important;
-    border: 3px solid #C59B27 !important;
-    border-radius: 28px !important;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(197, 155, 39, 0.4) !important;
-    background: #0B0103 !important;
-    position: relative !important;
-    overflow: visible !important;
-    box-sizing: border-box !important;
+/* Khi xem Màn Hình Rộng trên Desktop/Laptop: khung 860px to rõ, dài đẹp */
+@media (min-width: 681px) and (min-height: 521px) {
+    body.view-mode-wide .main-invitation {
+        max-width: 860px !important;
+        margin: 15px auto 0 !important;
+        padding: 15px 20px 80px !important;
+    }
 }
 
 /* Header VLU logo bar bên trong thiệp */

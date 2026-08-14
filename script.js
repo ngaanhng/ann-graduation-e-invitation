@@ -521,19 +521,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- AUTO-DETECT REAL MOBILE DEVICE ---
     // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động và khóa lại
     function applyAutoMobileMode() {
-        const isSmallMobile = window.innerWidth <= 680;
-        const isTablet = window.innerWidth > 680 && window.innerWidth <= 1180;
+        const isSmallMobilePortrait = window.innerWidth <= 680;
+        const isMobileLandscape = (window.innerHeight <= 520 && window.innerWidth <= 1000) && 
+                                  (('ontouchstart' in window) || navigator.maxTouchPoints > 0) &&
+                                  !navigator.userAgent.includes('iPad');
+        const isRealMobile = isSmallMobilePortrait || isMobileLandscape;
+        const isTablet = !isRealMobile && (window.innerWidth <= 1180 || navigator.userAgent.includes('iPad') || (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1));
         const mobileBtn = document.querySelector('.switcher-btn[data-mode="mobile"]');
         const wideBtn = document.querySelector('.switcher-btn[data-mode="wide"]');
 
-        if (isSmallMobile) {
-            // Trên điện thoại di động: luôn áp dụng chế độ Khung Di Động
+        if (isRealMobile) {
+            // Trên điện thoại di động (cả dọc và xoay ngang): luôn áp dụng chế độ di động tràn viền
             document.body.classList.remove('view-mode-wide');
             document.body.classList.add('view-mode-mobile');
-            if (switcherBtns.length > 0) {
-                switcherBtns.forEach(b => b.classList.remove('active'));
-                if (mobileBtn) mobileBtn.classList.add('active');
-            }
         } else if (isTablet) {
             // Trên iPad / Máy tính bảng: mặc định là chế độ Màn Hình Rộng và hỗ trợ chuyển đổi cả 2 chế độ
             document.body.classList.add('is-ipad', 'is-touch-device');
@@ -551,6 +551,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+    window.addEventListener('resize', applyAutoMobileMode);
+    window.addEventListener('orientationchange', () => {
+        setTimeout(applyAutoMobileMode, 100);
+    });
 
     // --- MOBILE & IPAD DIRECT DRIVE REDIRECT HANDLER ---
     document.querySelectorAll('.mobile-video-overlay-link').forEach(link => {
