@@ -546,6 +546,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- MOBILE DIRECT DRIVE REDIRECT HANDLER ---
+    document.querySelectorAll('.mobile-video-overlay-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const isMobile = document.body.classList.contains('view-mode-mobile') || window.innerWidth <= 768;
+            if (isMobile) {
+                const url = link.getAttribute('href');
+                if (url) {
+                    window.open(url, '_blank');
+                    e.preventDefault();
+                }
+            }
+        });
+    });
+
     // Run Init
     init();
 });

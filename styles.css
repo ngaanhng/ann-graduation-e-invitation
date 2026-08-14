@@ -361,23 +361,70 @@ body {
     100% { transform: translateY(8px); }
 }
 
-@media (max-width: 1340px) {
+@media (max-width: 1440px) {
     .main-sash-ribbon {
-        display: none !important; /* Hide on small screens in wide mode to prevent covering invitation text */
+        right: calc(50% + 445px);
+        height: 550px;
+        top: 55px;
+        display: block !important;
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
+    .main-invitation {
+        max-width: 780px;
+    }
+    .main-sash-ribbon {
+        right: calc(50% + 405px);
+        height: 490px;
+        top: 60px;
+        display: block !important;
+    }
     .cover-sash-ribbon {
         left: calc(50% + 210px);
-        right: auto;
-        height: 540px;
+        height: 510px;
+        display: block !important;
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 1024px) {
+    .main-invitation {
+        max-width: 720px;
+    }
+    .main-sash-ribbon {
+        right: calc(50% + 375px);
+        height: 450px;
+        top: 60px;
+        display: block !important;
+    }
     .cover-sash-ribbon {
-        display: none !important; /* Hide on narrow mobile screens to prevent overlapping center poster */
+        left: calc(50% + 195px);
+        height: 470px;
+        display: block !important;
+    }
+}
+
+@media (max-width: 860px) {
+    .main-invitation {
+        max-width: 620px;
+    }
+    .main-sash-ribbon {
+        right: calc(50% + 325px);
+        height: 390px;
+        top: 65px;
+        display: block !important;
+    }
+    .cover-sash-ribbon {
+        left: calc(50% + 175px);
+        height: 410px;
+        display: block !important;
+    }
+}
+
+@media (max-width: 740px) {
+    body.view-mode-wide .main-sash-ribbon,
+    body.view-mode-wide .cover-sash-ribbon {
+        display: none !important;
     }
 }
 
@@ -1231,6 +1278,45 @@ body {
     margin: 0 auto;
 }
 
+/* MOBILE-ONLY DRIVE DIRECT PLAY OVERLAY */
+.mobile-video-overlay-link {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+@media (max-width: 768px) {
+    .mobile-video-overlay-link {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 25 !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        text-decoration: none !important;
+    }
+}
+
+body.view-mode-mobile .mobile-video-overlay-link {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 25 !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    text-decoration: none !important;
+}
+
+body.view-mode-wide .mobile-video-overlay-link {
+    display: none !important;
+    pointer-events: none !important;
+}
+
 .drive-video-frame-box iframe {
     position: absolute;
     top: 0;
@@ -1242,41 +1328,10 @@ body {
     pointer-events: auto !important;
 }
 
-/* DIRECT GOOGLE DRIVE LAUNCH BUTTON FOR 100% UNRESTRICTED FULL FEATURE PLAYER */
-.btn-video-drive-launch {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    max-width: 320px;
-    margin-top: 10px;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%);
-    color: #FFFFFF;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 800;
-    border-radius: 12px;
-    text-decoration: none;
-    box-shadow: 0 6px 18px rgba(139, 30, 30, 0.35);
-    transition: all 0.25s ease;
-    border: 1.5px solid var(--color-gold);
-    letter-spacing: 0.3px;
-    text-align: center;
-}
-
-.btn-video-drive-launch:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139, 30, 30, 0.5);
-    background: linear-gradient(135deg, #A02020 0%, #C8102E 100%);
-    color: #FFFFFF;
-}
-
 .video-caption-text {
     font-size: 0.85rem;
     color: #5C4343;
-    margin-top: 8px;
+    margin-top: 12px;
     line-height: 1.55;
     display: flex;
     align-items: flex-start;
@@ -1296,12 +1351,7 @@ body {
     font-size: 1rem;
 }
 
-@media (max-width: 680px) {
-    .btn-video-drive-launch {
-        max-width: 100%;
-        font-size: 0.85rem;
-        padding: 10px 14px;
-    }
+@media (max-width: 768px) {
     .video-caption-text {
         max-width: 100%;
     }
@@ -1469,6 +1519,47 @@ body {
 .campus-map-caption-below i {
     color: #C59B27;
     font-size: 1.1rem;
+}
+
+/* DEDICATED BUTTON TO OPEN CAMPUS MAP ON GOOGLE DRIVE (VISIBLE ON BOTH MOBILE & DESKTOP) */
+.btn-campus-map-drive-launch {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 14px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%);
+    color: #FFFFFF !important;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    border-radius: 14px;
+    text-decoration: none !important;
+    box-shadow: 0 6px 18px rgba(139, 30, 30, 0.35);
+    transition: all 0.25s ease;
+    border: 1.5px solid var(--color-gold);
+    letter-spacing: 0.3px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-campus-map-drive-launch:hover,
+.btn-campus-map-drive-launch:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(139, 30, 30, 0.5);
+    background: linear-gradient(135deg, #A02020 0%, #C8102E 100%);
+    color: #FFFFFF !important;
+}
+
+@media (max-width: 680px) {
+    .btn-campus-map-drive-launch {
+        font-size: 0.82rem !important;
+        padding: 10px 14px !important;
+        border-radius: 12px !important;
+    }
 }
 
 .campus-map-img-wrapper:hover .campus-overview-img {
@@ -2318,13 +2409,6 @@ body.view-mode-mobile .drive-video-frame-box iframe {
     height: 100% !important;
     border: 0 !important;
     display: block !important;
-}
-
-body.view-mode-mobile .btn-video-drive-launch {
-    max-width: 100% !important;
-    font-size: 0.86rem !important;
-    padding: 10px 12px !important;
-    text-align: center !important;
 }
 
 body.view-mode-mobile .video-caption-text {
