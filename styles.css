@@ -2246,8 +2246,9 @@ body.view-mode-mobile .edit-card-btn {
 }
 
 /* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE (IPHONE, SAMSUNG...):
-   SASH NẰM Ở NGOÀI CÙNG BÊN TRÁI MÀN HÌNH (LEFT: 6PX),
-   KHUNG THIỆP CĂN GIỮA, HOÀN TOÀN TÁCH BIỆT, KHÔNG CHE CHỮ */
+   - SASH NẰM NGOÀI CÙNG BÊN TRÁI MÀN HÌNH (LEFT: 8PX - ĐÚNG VỊ TRÍ ĐƯỜNG ĐỎ CỦA USER)
+   - CHIỀU DÀI SASH BẰNG TOÀN BỘ CHIỀU CAO MẶT NGANG MÀN HÌNH (CALC(100VH - 16PX))
+   - KHUNG THIỆP CĂN GIỮA, HOÀN TOÀN KHÔNG CHẠM/DÍNH VÀO SASH */
 @media (orientation: landscape) and (max-width: 1050px) and (max-height: 650px) {
     body {
         padding-left: 0 !important;
@@ -2260,40 +2261,47 @@ body.view-mode-mobile .edit-card-btn {
         display: block !important;
         position: fixed !important;
         top: 8px !important;
-        left: 6px !important; /* NGOÀI CÙNG BÊN TRÁI */
+        left: 8px !important; /* NGOÀI CÙNG BÊN TRÁI */
         right: auto !important;
-        width: 44px !important;
-        height: auto !important;
-        max-height: 92vh !important;
-        z-index: 99 !important;
-        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 6px 15px rgba(0, 0, 0, 0.4)) !important;
+        bottom: 8px !important;
+        height: calc(100vh - 16px) !important; /* DÀI BẰNG TOÀN BỘ MẶT NGANG MÀN HÌNH */
+        max-height: calc(100vh - 16px) !important;
+        width: auto !important;
+        z-index: 9999 !important;
+        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
         pointer-events: none !important;
     }
 
-    /* Đảm bảo khung thiệp cả trang đầu và trang sau căn giữa đẹp, cách xa sash ngoài cùng */
+    /* Đảm bảo khung thiệp cả trang đầu và trang sau căn giữa đẹp, không tạo chứa khối làm lệch sash */
     .main-invitation,
     body.view-mode-mobile .main-invitation,
     body.view-mode-wide .main-invitation {
-        max-width: min(390px, calc(100vw - 140px)) !important;
+        max-width: min(380px, calc(100vw - 160px)) !important;
         width: 100% !important;
         margin: 0 auto !important;
         padding: 10px 14px 80px !important;
         box-sizing: border-box !important;
+        position: static !important;
+        transform: none !important;
+        filter: none !important;
     }
 
     .envelope-screen,
     body.view-mode-mobile .envelope-screen,
     body.view-mode-wide .envelope-screen {
-        max-width: min(390px, calc(100vw - 140px)) !important;
+        max-width: min(380px, calc(100vw - 160px)) !important;
         width: 100% !important;
         margin: 0 auto !important;
         box-sizing: border-box !important;
+        position: static !important;
+        transform: none !important;
+        filter: none !important;
     }
 
     .intro-vlu-top,
     body.view-mode-mobile .intro-vlu-top,
     body.view-mode-wide .intro-vlu-top {
-        max-width: min(390px, calc(100vw - 140px)) !important;
+        max-width: min(380px, calc(100vw - 160px)) !important;
         width: 100% !important;
         margin: 0 auto 16px !important;
         border-radius: 4px !important;
@@ -2301,7 +2309,7 @@ body.view-mode-mobile .edit-card-btn {
     }
 
     .cover-poster-card {
-        max-width: min(360px, calc(100vw - 140px)) !important;
+        max-width: min(350px, calc(100vw - 160px)) !important;
         margin: 0 auto !important;
     }
 }
