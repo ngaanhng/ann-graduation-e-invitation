@@ -522,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động và khóa lại
     function applyAutoMobileMode() {
         const isSmallMobilePortrait = window.innerWidth <= 680;
-        const isMobileLandscape = (window.innerHeight <= 520 && window.innerWidth <= 1000) && 
+        const isMobileLandscape = (window.innerHeight <= 650 && window.innerWidth <= 1050 && window.innerWidth > window.innerHeight) && 
                                   (('ontouchstart' in window) || navigator.maxTouchPoints > 0) &&
                                   !navigator.userAgent.includes('iPad');
         const isRealMobile = isSmallMobilePortrait || isMobileLandscape;
