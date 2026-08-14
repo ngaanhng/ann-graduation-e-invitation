@@ -519,25 +519,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- AUTO-DETECT REAL MOBILE DEVICE ---
-    // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động
+    // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động và khóa lại
     function applyAutoMobileMode() {
-        const isMobileScreen = window.innerWidth <= 768;
+        const isSmallMobile = window.innerWidth <= 680;
+        const isTablet = window.innerWidth > 680 && window.innerWidth <= 1180;
         const mobileBtn = document.querySelector('.switcher-btn[data-mode="mobile"]');
         const wideBtn = document.querySelector('.switcher-btn[data-mode="wide"]');
 
-        if (isMobileScreen) {
-            // Trên mobile thực tế: mặc định là chế độ Khung Di Động
-            if (!document.body.classList.contains('view-mode-wide')) {
-                // Chỉ tự động áp dụng nếu người dùng chưa chủ động chọn Màn Hình Rộng
-                document.body.classList.remove('view-mode-wide');
-                document.body.classList.add('view-mode-mobile');
-                if (switcherBtns.length > 0) {
-                    switcherBtns.forEach(b => b.classList.remove('active'));
-                    if (mobileBtn) mobileBtn.classList.add('active');
-                }
+        if (isSmallMobile) {
+            // Trên điện thoại di động: luôn áp dụng chế độ Khung Di Động
+            document.body.classList.remove('view-mode-wide');
+            document.body.classList.add('view-mode-mobile');
+            if (switcherBtns.length > 0) {
+                switcherBtns.forEach(b => b.classList.remove('active'));
+                if (mobileBtn) mobileBtn.classList.add('active');
+            }
+        } else if (isTablet) {
+            // Trên iPad / Máy tính bảng: mặc định là chế độ Màn Hình Rộng và hỗ trợ chuyển đổi cả 2 chế độ
+            document.body.classList.add('is-ipad', 'is-touch-device');
+            if (!document.body.classList.contains('view-mode-mobile') &&
+                !document.body.classList.contains('view-mode-wide')) {
+                document.body.classList.add('view-mode-wide');
+                if (wideBtn) wideBtn.classList.add('active');
             }
         } else {
-            // Trên PC: mặc định là chế độ Màn Hình Rộng nếu chưa có class nào
+            // Trên Laptop / PC: mặc định là chế độ Màn Hình Rộng
             if (!document.body.classList.contains('view-mode-mobile') &&
                 !document.body.classList.contains('view-mode-wide')) {
                 document.body.classList.add('view-mode-wide');
@@ -546,11 +552,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- MOBILE DIRECT DRIVE REDIRECT HANDLER ---
+    // --- MOBILE & IPAD DIRECT DRIVE REDIRECT HANDLER ---
     document.querySelectorAll('.mobile-video-overlay-link').forEach(link => {
         link.addEventListener('click', (e) => {
+            const isIPadOrTablet = navigator.userAgent.includes('iPad') || 
+                                   (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1) ||
+                                   document.body.classList.contains('is-ipad') ||
+                                   document.body.classList.contains('is-touch-device') ||
+                                   (window.innerWidth <= 1180 && ('ontouchstart' in window || navigator.maxTouchPoints > 0));
             const isMobile = document.body.classList.contains('view-mode-mobile') || window.innerWidth <= 768;
-            if (isMobile) {
+
+            if (isMobile || isIPadOrTablet) {
                 const url = link.getAttribute('href');
                 if (url) {
                     window.open(url, '_blank');

@@ -1278,7 +1278,7 @@ body {
     margin: 0 auto;
 }
 
-/* MOBILE-ONLY DRIVE DIRECT PLAY OVERLAY */
+/* MOBILE & IPAD DIRECT DRIVE PLAY OVERLAY */
 .mobile-video-overlay-link {
     display: none !important;
     pointer-events: none !important;
@@ -1299,7 +1299,9 @@ body {
     }
 }
 
-body.view-mode-mobile .mobile-video-overlay-link {
+body.view-mode-mobile .mobile-video-overlay-link,
+body.is-touch-device .mobile-video-overlay-link,
+body.is-ipad .mobile-video-overlay-link {
     display: block !important;
     position: absolute !important;
     inset: 0 !important;
@@ -1312,9 +1314,28 @@ body.view-mode-mobile .mobile-video-overlay-link {
     text-decoration: none !important;
 }
 
-body.view-mode-wide .mobile-video-overlay-link {
-    display: none !important;
-    pointer-events: none !important;
+/* Touch tablet screen media query (for iPad in landscape & portrait) */
+@media (hover: none) and (pointer: coarse) {
+    .mobile-video-overlay-link {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        z-index: 25 !important;
+        background: transparent !important;
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        text-decoration: none !important;
+    }
+}
+
+/* Only hide on Non-Touch Laptop / Desktop PC in Wide Mode */
+@media (hover: hover) and (pointer: fine) {
+    body:not(.is-touch-device):not(.is-ipad):not(.view-mode-mobile) .mobile-video-overlay-link {
+        display: none !important;
+        pointer-events: none !important;
+    }
 }
 
 .drive-video-frame-box iframe {
@@ -2094,39 +2115,49 @@ body.view-mode-mobile .invitation-footer {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
     .device-switcher-bar {
-        padding: 0 6px !important;
+        padding: 0 10px !important;
         height: 44px !important;
         justify-content: center !important;
     }
 
     .switcher-inner {
-        gap: 4px !important;
+        gap: 8px !important;
         width: 100% !important;
         justify-content: center !important;
     }
 
     .switcher-label {
-        display: none !important; /* Hide label on mobile to give buttons full width */
+        display: flex !important;
+        font-size: 0.75rem !important;
     }
 
     .switcher-options {
-        width: 100% !important;
-        max-width: 360px !important;
-        justify-content: space-around !important;
-        padding: 3px 4px !important;
+        width: auto !important;
+        max-width: none !important;
+        justify-content: center !important;
+        padding: 2px 4px !important;
         gap: 4px !important;
     }
 
-    .switcher-btn {
-        padding: 5px 8px !important;
-        font-size: 0.70rem !important;
-        gap: 4px !important;
-        flex: 1 !important;
+    /* Ẩn hoàn toàn nút "Màn Hình Rộng" trên mobile, chỉ để lại "Khung Di Động" */
+    .switcher-btn[data-mode="wide"] {
+        display: none !important;
+    }
+
+    .switcher-btn[data-mode="mobile"] {
+        display: flex !important;
+        padding: 5px 14px !important;
+        font-size: 0.74rem !important;
+        gap: 5px !important;
+        flex: none !important;
         justify-content: center !important;
         text-align: center !important;
-        letter-spacing: 0 !important;
+        letter-spacing: 0.2px !important;
+        background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%) !important;
+        border: 1px solid var(--color-gold) !important;
+        color: #FFFFFF !important;
     }
 
     /* Video container trên mobile */
