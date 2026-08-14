@@ -267,25 +267,27 @@ body {
     overflow: hidden;
 }
 
-.intro-vlu-top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 375px;
-    box-sizing: border-box;
-    background: rgba(139, 30, 30, 0.45);
-    border: 1.5px solid var(--color-gold);
-    padding: 8px 16px;
-    border-radius: 30px;
-    color: var(--color-gold-light);
-    font-size: 0.88rem;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin: 0 auto 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    text-transform: uppercase;
+.intro-vlu-top,
+body.view-mode-wide .intro-vlu-top,
+body.view-mode-mobile .intro-vlu-top {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 375px !important;
+    box-sizing: border-box !important;
+    background: rgba(139, 30, 30, 0.45) !important;
+    border: 1.5px solid var(--color-gold) !important;
+    padding: 8px 16px !important;
+    border-radius: 4px !important;
+    color: var(--color-gold-light) !important;
+    font-size: 0.88rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    margin: 0 auto 20px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+    text-transform: uppercase !important;
 }
 
 .intro-vlu-top .vlu-brand-full-img {
@@ -675,12 +677,13 @@ body {
         align-items: center;
         gap: 10px;
         width: 100%;
-        max-width: 100%;
+        max-width: 375px;
         box-sizing: border-box;
         padding: 8px 16px;
         font-size: 0.72rem;
         letter-spacing: 1px;
-        margin: 0 auto 12px;
+        margin: 0 auto 16px;
+        border-radius: 4px;
     }
     .intro-vlu-top .vlu-brand-full-img {
         height: 26px;
@@ -2139,9 +2142,9 @@ body.view-mode-mobile .edit-card-btn {
     body.view-mode-mobile .cover-sash-ribbon {
         position: absolute !important;
         top: 0px !important;
-        left: calc(100% + 14px) !important;
-        right: auto !important;
-        height: 420px !important;
+        right: calc(100% + 16px) !important;
+        left: auto !important;
+        height: 440px !important;
         z-index: 10 !important;
         display: block !important;
     }
@@ -2190,8 +2193,11 @@ body.view-mode-mobile .edit-card-btn {
 
     .intro-vlu-top,
     body.view-mode-mobile .intro-vlu-top {
-        border-radius: 0 !important;
+        border-radius: 4px !important;
         width: 100% !important;
+        max-width: 375px !important;
+        margin: 0 auto 16px !important;
+        box-sizing: border-box !important;
     }
 
     /* Video container trên mobile */
@@ -2214,19 +2220,36 @@ body.view-mode-mobile .edit-card-btn {
     }
 }
 
-/* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE: HIỆN SASH ĐỒNG BỘ */
+/* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE: HIỆN SASH BÊN TRÁI ĐỂ KHÔNG BỊ CHE */
 @media (max-height: 520px) and (orientation: landscape) and (max-width: 1000px) {
     body.view-mode-mobile .main-sash-ribbon,
     body.view-mode-mobile .cover-sash-ribbon,
     .main-sash-ribbon,
     .cover-sash-ribbon {
         display: block !important;
-        position: absolute !important;
-        top: 10px !important;
-        left: calc(100% + 12px) !important;
+        position: fixed !important;
+        top: 15px !important;
+        left: 14px !important;
         right: auto !important;
-        height: 360px !important;
-        z-index: 10 !important;
+        height: 330px !important;
+        max-height: 86vh !important;
+        z-index: 99 !important;
+        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4)) !important;
+    }
+
+    .main-invitation,
+    body.view-mode-mobile .main-invitation,
+    body.view-mode-wide .main-invitation {
+        max-width: 520px !important;
+        margin: 0 auto !important;
+        padding: 10px 14px 80px !important;
+    }
+
+    .envelope-screen,
+    body.view-mode-mobile .envelope-screen,
+    body.view-mode-wide .envelope-screen {
+        max-width: 520px !important;
+        margin: 0 auto !important;
     }
 }
 
@@ -2258,16 +2281,18 @@ body.view-mode-mobile .invitation-header .brand .vlu-brand-full-img {
     height: 36px !important;
 }
 
-body.view-mode-mobile .intro-vlu-top {
+body.view-mode-mobile .intro-vlu-top,
+body.view-mode-wide .intro-vlu-top {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 10px !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 375px !important;
     box-sizing: border-box !important;
+    border-radius: 4px !important;
     padding: 8px 16px !important;
-    margin: 0 auto 14px !important;
+    margin: 0 auto 16px !important;
 }
 
 body.view-mode-mobile .intro-vlu-top .vlu-brand-full-img {
