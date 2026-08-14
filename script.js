@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             envelopeScreen.classList.add('hidden');
             mainInvitation.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            applyAutoMobileMode();
         }, 600);
     }
 
@@ -246,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
             envelopeScreen.classList.remove('hidden');
             envelopeScreen.style.opacity = '1';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            applyAutoMobileMode();
         });
     }
 
@@ -518,15 +520,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- AUTO-DETECT REAL MOBILE DEVICE ---
-    // Khi xem trên điện thoại thực (iPhone, Samsung, ...) tự động áp dụng chế độ di động và khóa lại
+    // --- AUTO-DETECT REAL MOBILE DEVICE & SAMSUNG/ANDROID SASH FIX ---
     function applyAutoMobileMode() {
         const isAndroid = /Android|Samsung|Linux arm/i.test(navigator.userAgent) || 
                           (!/iPhone|iPad|iPod/i.test(navigator.userAgent) && (('ontouchstart' in window) || navigator.maxTouchPoints > 0) && !navigator.userAgent.includes('Macintosh') && !navigator.userAgent.includes('Windows'));
         if (isAndroid) {
             document.body.classList.add('is-samsung-android');
+            document.documentElement.classList.add('is-samsung-android');
         } else {
             document.body.classList.remove('is-samsung-android');
+            document.documentElement.classList.remove('is-samsung-android');
         }
 
         const isSmallMobilePortrait = window.innerWidth <= 680;
@@ -557,6 +560,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.add('view-mode-wide');
                 if (wideBtn) wideBtn.classList.add('active');
             }
+        }
+
+        // ĐẶC TRỊ SAMSUNG / ANDROID KHI XOAY NGANG
+        if (isAndroid && isMobileLandscape) {
+            const mainSash = document.querySelector('.main-sash-ribbon');
+            const coverSash = document.querySelector('.cover-sash-ribbon');
+            [mainSash, coverSash].forEach(sash => {
+                if (sash) {
+                    sash.style.setProperty('position', 'fixed', 'important');
+                    sash.style.setProperty('left', '8px', 'important');
+                    sash.style.setProperty('right', 'auto', 'important');
+                    sash.style.setProperty('top', '6px', 'important');
+                    sash.style.setProperty('bottom', '6px', 'important');
+                    sash.style.setProperty('height', 'calc(100vh - 12px)', 'important');
+                    sash.style.setProperty('max-height', 'calc(100vh - 12px)', 'important');
+                    sash.style.setProperty('width', 'auto', 'important');
+                    sash.style.setProperty('z-index', '99999', 'important');
+                    sash.style.setProperty('display', 'block', 'important');
+                }
+            });
         }
     }
 
