@@ -2116,48 +2116,17 @@ body.view-mode-mobile .invitation-footer {
 }
 
 @media (max-width: 680px) {
+    /* Ẩn hoàn toàn khung chế độ xem trên giao diện mobile */
     .device-switcher-bar {
-        padding: 0 10px !important;
-        height: 44px !important;
-        justify-content: center !important;
-    }
-
-    .switcher-inner {
-        gap: 8px !important;
-        width: 100% !important;
-        justify-content: center !important;
-    }
-
-    .switcher-label {
-        display: flex !important;
-        font-size: 0.75rem !important;
-    }
-
-    .switcher-options {
-        width: auto !important;
-        max-width: none !important;
-        justify-content: center !important;
-        padding: 2px 4px !important;
-        gap: 4px !important;
-    }
-
-    /* Ẩn hoàn toàn nút "Màn Hình Rộng" trên mobile, chỉ để lại "Khung Di Động" */
-    .switcher-btn[data-mode="wide"] {
         display: none !important;
     }
 
-    .switcher-btn[data-mode="mobile"] {
-        display: flex !important;
-        padding: 5px 14px !important;
-        font-size: 0.74rem !important;
-        gap: 5px !important;
-        flex: none !important;
-        justify-content: center !important;
-        text-align: center !important;
-        letter-spacing: 0.2px !important;
-        background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%) !important;
-        border: 1px solid var(--color-gold) !important;
-        color: #FFFFFF !important;
+    body {
+        padding-top: 0 !important;
+    }
+
+    body.view-mode-mobile {
+        padding-top: 0 !important;
     }
 
     /* Video container trên mobile */
@@ -2243,10 +2212,29 @@ body.view-mode-mobile .cover-sash-ribbon {
     display: block !important;
 }
 
-@media (max-width: 650px) {
+/* KHI Ở MÀN HÌNH DỌC TRÊN MOBILE: ẨN SASH ĐI */
+@media (max-width: 680px) and (orientation: portrait), (max-width: 500px) {
     body.view-mode-mobile .main-sash-ribbon,
-    body.view-mode-mobile .cover-sash-ribbon {
+    body.view-mode-mobile .cover-sash-ribbon,
+    .main-sash-ribbon,
+    .cover-sash-ribbon {
         display: none !important;
+    }
+}
+
+/* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE: HIỆN SASH ĐỒNG BỘ */
+@media (max-height: 520px) and (orientation: landscape), (min-width: 501px) and (max-width: 950px) and (orientation: landscape) {
+    body.view-mode-mobile .main-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon,
+    .main-sash-ribbon,
+    .cover-sash-ribbon {
+        display: block !important;
+        position: absolute !important;
+        top: 10px !important;
+        left: calc(100% + 12px) !important;
+        right: auto !important;
+        height: 360px !important;
+        z-index: 10 !important;
     }
 }
 
