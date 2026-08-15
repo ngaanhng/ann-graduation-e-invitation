@@ -252,6 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- AUDIO BACKGROUND MUSIC ---
+    const audioStreamUrls = [
+        "assets/bg_music_custom.mp3",
+        "https://docs.google.com/uc?export=download&id=1qxFJnXQwj9l5sRW1neZhio_Md6RWn5sr",
+        "https://drive.google.com/uc?export=download&id=1qxFJnXQwj9l5sRW1neZhio_Md6RWn5sr"
+    ];
+    let currentAudioUrlIndex = 0;
+
     if (audioToggleBtn) {
         audioToggleBtn.addEventListener('click', () => {
             if (isPlayingAudio) {
@@ -276,7 +283,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioStatusText.classList.add('active');
             }
         }).catch(err => {
-            console.log("Autoplay policy info:", err);
+            console.log("Autoplay / Audio load note:", err);
+            // Attempt fallback Google Drive stream URL if primary source fails
+            if (currentAudioUrlIndex < audioStreamUrls.length - 1) {
+                currentAudioUrlIndex++;
+                bgMusic.src = audioStreamUrls[currentAudioUrlIndex];
+                bgMusic.load();
+                bgMusic.play().then(() => {
+                    isPlayingAudio = true;
+                    if (audioToggleBtn) audioToggleBtn.classList.add('playing');
+                    if (audioStatusText) {
+                        audioStatusText.textContent = "BẬT";
+                        audioStatusText.classList.add('active');
+                    }
+                }).catch(e => console.log("Audio fallback notice:", e));
+            }
         });
     }
 
