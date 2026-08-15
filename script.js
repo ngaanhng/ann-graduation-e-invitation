@@ -254,8 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- AUDIO BACKGROUND MUSIC ---
     const audioStreamUrls = [
         "assets/bg_music_custom.mp3",
-        "https://docs.google.com/uc?export=download&id=1qxFJnXQwj9l5sRW1neZhio_Md6RWn5sr",
-        "https://drive.google.com/uc?export=download&id=1qxFJnXQwj9l5sRW1neZhio_Md6RWn5sr"
+        "https://docs.google.com/uc?export=download&id=1gjKr5oubskjxK5ysOicZ_wViTbrPmkp6",
+        "https://drive.google.com/uc?export=download&id=1gjKr5oubskjxK5ysOicZ_wViTbrPmkp6"
     ];
     let currentAudioUrlIndex = 0;
 

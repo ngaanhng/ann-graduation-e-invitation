@@ -465,6 +465,60 @@ body.view-mode-wide .main-sash-ribbon {
     }
 }
 
+/* ========================================================
+   QUY TẮC DÀNH RIÊNG CHO IPAD / TABLET KHI XOAY DỌC
+   - KHUNG THIỆP ĐẨY LÊN SÁT THANH CHẾ ĐỘ XEM TRÊN CÙNG
+   - TRIỆT TIÊU TOÀN BỘ KHOẢNG TRỐNG THỪA PHÍA TRÊN
+   ======================================================== */
+@media (orientation: portrait) and (min-width: 681px) and (max-width: 1180px) {
+    .envelope-screen,
+    body.view-mode-wide .envelope-screen,
+    body.view-mode-mobile .envelope-screen,
+    body.is-ipad .envelope-screen {
+        min-height: auto !important;
+        justify-content: flex-start !important;
+        padding-top: 8px !important;
+        padding-bottom: 25px !important;
+        margin-top: 0 !important;
+    }
+
+    .intro-vlu-top,
+    body.view-mode-wide .intro-vlu-top,
+    body.view-mode-mobile .intro-vlu-top,
+    body.is-ipad .intro-vlu-top {
+        margin: 0 auto 10px !important;
+    }
+
+    .cover-poster-card,
+    body.view-mode-wide .cover-poster-card,
+    body.view-mode-mobile .cover-poster-card,
+    body.is-ipad .cover-poster-card {
+        margin: 0 auto !important;
+    }
+
+    .cover-sash-ribbon,
+    body.view-mode-wide .cover-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon,
+    body.is-ipad .cover-sash-ribbon {
+        top: 48px !important;
+    }
+
+    .main-invitation,
+    body.view-mode-wide .main-invitation,
+    body.view-mode-mobile .main-invitation,
+    body.is-ipad .main-invitation {
+        margin-top: 8px !important;
+        padding-top: 10px !important;
+    }
+
+    .main-sash-ribbon,
+    body.view-mode-wide .main-sash-ribbon,
+    body.view-mode-mobile .main-sash-ribbon,
+    body.is-ipad .main-sash-ribbon {
+        top: 48px !important;
+    }
+}
+
 /* Top Dark Crimson Cap Flap Chevron */
 .cover-cap-chevron {
     width: 100%;
@@ -2258,10 +2312,15 @@ body.view-mode-mobile .edit-card-btn {
 /* KHI XOAY MÀN HÌNH NGANG TRÊN MOBILE (IPHONE, SAMSUNG...):
    - SASH NẰM NGOÀI CÙNG BÊN TRÁI MÀN HÌNH (LEFT: 8PX - ĐÚNG VỊ TRÍ ĐƯỜNG ĐỎ CỦA USER)
    - CHIỀU DÀI SASH BẰNG TOÀN BỘ CHIỀU CAO MẶT NGANG MÀN HÌNH (CALC(100VH - 16PX))
-   - KHUNG THIỆP CĂN GIỮA, HOÀN TOÀN KHÔNG CHẠM/DÍNH VÀO SASH */
+   - KHUNG THIỆP CĂN GIỮA, NẰM TRÊN CÁC ICON SAO RƠI (KHÔNG BỊ SAO RƠI CHE NỘI DUNG) */
 @media (orientation: landscape) and (max-width: 1050px) and (max-height: 650px) {
     body {
         padding-left: 0 !important;
+    }
+
+    /* Hiệu ứng icon sao rơi nằm dưới khung thiệp trên mobile xoay ngang */
+    #falling-icons-canvas {
+        z-index: 0 !important;
     }
 
     body.view-mode-mobile .main-sash-ribbon,
@@ -2282,7 +2341,7 @@ body.view-mode-mobile .edit-card-btn {
         pointer-events: none !important;
     }
 
-    /* Đảm bảo khung thiệp cả trang đầu và trang sau căn giữa đẹp, không tạo chứa khối làm lệch sash */
+    /* Đảm bảo khung thiệp cả trang đầu và trang sau nằm trên icon rơi, căn giữa đẹp */
     .main-invitation,
     body.view-mode-mobile .main-invitation,
     body.view-mode-wide .main-invitation {
@@ -2291,7 +2350,8 @@ body.view-mode-mobile .edit-card-btn {
         margin: 0 auto !important;
         padding: 10px 14px 80px !important;
         box-sizing: border-box !important;
-        position: static !important;
+        position: relative !important;
+        z-index: 5 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2303,7 +2363,8 @@ body.view-mode-mobile .edit-card-btn {
         width: 100% !important;
         margin: 0 auto !important;
         box-sizing: border-box !important;
-        position: static !important;
+        position: relative !important;
+        z-index: 5 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2321,6 +2382,8 @@ body.view-mode-mobile .edit-card-btn {
     .cover-poster-card {
         max-width: min(350px, calc(100vw - 160px)) !important;
         margin: 0 auto !important;
+        position: relative !important;
+        z-index: 5 !important;
     }
 }
 
@@ -2328,9 +2391,13 @@ body.view-mode-mobile .edit-card-btn {
    QUY TẮC ĐỊNH VỊ DÀNH RIÊNG CHO SAMSUNG / ANDROID (XOAY NGANG)
    - SASH LUÔN NẰM SÁT MÉP TRÁI MÀN HÌNH (LEFT: 8PX)
    - CHIỀU DÀI SASH BẰNG VỚI CHIỀU CAO MÀN HÌNH NGANG (CALC(100VH - 12PX))
-   - KHUNG THIỆP CĂN GIỮA ĐẸP, TUYỆT ĐỐI KHÔNG BỊ SASH ĐÈ LÊN CHỮ
+   - KHUNG THIỆP CĂN GIỮA ĐẸP, NẰM TRÊN ICON RƠI, TUYỆT ĐỐI KHÔNG BỊ SASH ĐÈ LÊN CHỮ
    ======================================================== */
 @media (orientation: landscape) and (max-width: 1100px) and (max-height: 650px) {
+    body.is-samsung-android #falling-icons-canvas {
+        z-index: 0 !important;
+    }
+
     body.is-samsung-android .main-sash-ribbon,
     body.is-samsung-android .cover-sash-ribbon,
     body.is-samsung-android.view-mode-mobile .main-sash-ribbon,
@@ -2359,7 +2426,8 @@ body.view-mode-mobile .edit-card-btn {
         margin: 0 auto !important;
         padding: 10px 14px 80px !important;
         box-sizing: border-box !important;
-        position: static !important;
+        position: relative !important;
+        z-index: 5 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2371,7 +2439,8 @@ body.view-mode-mobile .edit-card-btn {
         width: 100% !important;
         margin: 0 auto !important;
         box-sizing: border-box !important;
-        position: static !important;
+        position: relative !important;
+        z-index: 5 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2389,6 +2458,8 @@ body.view-mode-mobile .edit-card-btn {
     body.is-samsung-android .cover-poster-card {
         max-width: min(350px, calc(100vw - 180px)) !important;
         margin: 0 auto !important;
+        position: relative !important;
+        z-index: 5 !important;
     }
 }
 
