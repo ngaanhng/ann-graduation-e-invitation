@@ -329,14 +329,15 @@ body.view-mode-mobile .intro-vlu-top {
     box-shadow: 0 35px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(197, 155, 39, 0.5);
 }
 
-/* Graduation Sash Ribbon Floating Outside Left of Cover Poster Card */
+/* Graduation Sash Ribbon Floating Outside Left of Cover Poster Card (DÀNH CHO LAPTOP) */
 .cover-sash-ribbon,
 body.view-mode-wide .cover-sash-ribbon {
     position: fixed !important;
-    top: 55px !important;
-    right: calc(50% + 215px) !important;
+    top: 48px !important;
+    right: calc(50% + 285px) !important;
     left: auto !important;
-    height: 560px !important;
+    height: calc(100vh - 65px) !important;
+    max-height: calc(100vh - 65px) !important;
     width: auto !important;
     z-index: 10 !important;
     display: block !important;
@@ -346,14 +347,15 @@ body.view-mode-wide .cover-sash-ribbon {
     animation: sashFloat 5s ease-in-out infinite alternate !important;
 }
 
-/* Graduation Sash Ribbon Floating Outside Left of Main Invitation Page in Wide Mode */
+/* Graduation Sash Ribbon Floating Outside Left of Main Invitation Page in Wide Mode (DÀNH CHO LAPTOP) */
 .main-sash-ribbon,
 body.view-mode-wide .main-sash-ribbon {
     position: fixed !important;
-    top: 55px !important;
-    right: calc(50% + 470px) !important;
+    top: 48px !important;
+    right: calc(50% + 495px) !important;
     left: auto !important;
-    height: 580px !important;
+    height: calc(100vh - 65px) !important;
+    max-height: calc(100vh - 65px) !important;
     width: auto !important;
     z-index: 10 !important;
     display: block !important;
@@ -368,45 +370,51 @@ body.view-mode-wide .main-sash-ribbon {
     100% { transform: translateY(8px); }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1440px) and (min-width: 1025px) {
     .main-sash-ribbon,
     body.view-mode-wide .main-sash-ribbon {
-        right: calc(50% + 445px) !important;
+        right: calc(50% + 475px) !important;
         left: auto !important;
-        height: 550px !important;
-        top: 55px !important;
+        height: calc(100vh - 65px) !important;
+        max-height: calc(100vh - 65px) !important;
+        top: 48px !important;
         display: block !important;
     }
     .cover-sash-ribbon,
     body.view-mode-wide .cover-sash-ribbon {
-        right: calc(50% + 215px) !important;
+        right: calc(50% + 275px) !important;
         left: auto !important;
+        height: calc(100vh - 65px) !important;
+        max-height: calc(100vh - 65px) !important;
+        top: 48px !important;
         display: block !important;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1200px) and (min-width: 1025px) {
     .main-invitation {
         max-width: 780px;
     }
     .main-sash-ribbon,
     body.view-mode-wide .main-sash-ribbon {
-        right: calc(50% + 405px) !important;
+        right: calc(50% + 435px) !important;
         left: auto !important;
-        height: 490px !important;
-        top: 60px !important;
+        height: calc(100vh - 65px) !important;
+        top: 50px !important;
         display: block !important;
     }
     .cover-sash-ribbon,
     body.view-mode-wide .cover-sash-ribbon {
-        right: calc(50% + 205px) !important;
+        right: calc(50% + 255px) !important;
         left: auto !important;
-        height: 510px !important;
+        height: calc(100vh - 65px) !important;
+        top: 50px !important;
         display: block !important;
     }
 }
 
-@media (max-width: 1024px) {
+/* RIÊNG CHO IPAD / MÁY TÍNH BẢNG (MÀN HÌNH <= 1024px) */
+@media (max-width: 1024px) and (min-width: 681px) {
     .main-invitation {
         max-width: 720px;
     }
@@ -423,11 +431,12 @@ body.view-mode-wide .main-sash-ribbon {
         right: calc(50% + 195px) !important;
         left: auto !important;
         height: 470px !important;
+        top: 60px !important;
         display: block !important;
     }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 860px) and (min-width: 681px) {
     .main-invitation {
         max-width: 620px;
     }
@@ -444,6 +453,7 @@ body.view-mode-wide .main-sash-ribbon {
         right: calc(50% + 180px) !important;
         left: auto !important;
         height: 410px !important;
+        top: 65px !important;
         display: block !important;
     }
 }
