@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const defaultData = {
         graduateName: "Nguyễn Nga Anh",
         guestInvitedName: "Quý Khách",
-        degree: "Tân Cử Nhân · Truyền thông đa phương tiện",
+        degree: "Cử Nhân · Truyền thông đa phương tiện",
         ceremonyDate: "2027-08-09", // 09.08.2027
         displayDateText: "09.08.2027",
         ceremonyTime: "10:30 sáng",
