@@ -624,6 +624,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 coverSash.style.setProperty('display', 'block', 'important');
             }
         }
+
+        // ĐẶC TRỊ IPAD KHI ĐỂ MÀN HÌNH DỌC: ẨN DẢI SASH GIỐNG NHƯ TRÊN IPHONE
+        if (isTablet && window.innerHeight > window.innerWidth) {
+            const mainSash = document.querySelector('.main-sash-ribbon');
+            const coverSash = document.querySelector('.cover-sash-ribbon');
+            if (mainSash) mainSash.style.setProperty('display', 'none', 'important');
+            if (coverSash) coverSash.style.setProperty('display', 'none', 'important');
+        }
     }
 
     window.addEventListener('resize', applyAutoMobileMode);

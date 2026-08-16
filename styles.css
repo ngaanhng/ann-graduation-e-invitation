@@ -466,63 +466,72 @@ body.view-mode-wide .main-sash-ribbon {
 }
 
 /* ========================================================
-   QUY TẮC DÀNH RIÊNG CHO IPAD / TABLET KHI XOAY DỌC
-   - KHUNG THIỆP ĐẨY LÊN SÁT THANH CHẾ ĐỘ XEM TRÊN CÙNG
-   - TRIỆT TIÊU TOÀN BỘ KHOẢNG TRỐNG THỪA PHÍA TRÊN
+   QUY TẮC ĐỘC QUYỀN CHO IPAD KHI XOAY DỌC
+   - GIỐNG NHƯ TRÊN IPHONE: ẨN DẢI SASH Ở MÀN HÌNH DỌC ĐỂ KHÔNG CHE NỘI DUNG
+   - KHUNG ĐẦU TRANG BÌA VÀ KHUNG THIỆP GỌN GÀNG, CĂN GIỮA ĐẸP NHƯ IPHONE
    ======================================================== */
 @media (orientation: portrait) and (min-width: 681px) and (max-width: 1180px) {
+    /* ẨN DẢI SASH Ở MÀN HÌNH DỌC IPAD ĐỂ GIỐNG NHƯ IPHONE */
+    .main-sash-ribbon,
+    .cover-sash-ribbon,
+    body.view-mode-wide .main-sash-ribbon,
+    body.view-mode-wide .cover-sash-ribbon,
+    body.view-mode-mobile .main-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon,
+    body.is-ipad .main-sash-ribbon,
+    body.is-ipad .cover-sash-ribbon,
+    .is-ipad .main-sash-ribbon,
+    .is-ipad .cover-sash-ribbon {
+        display: none !important;
+    }
+
     .envelope-screen,
     body.view-mode-wide .envelope-screen,
     body.view-mode-mobile .envelope-screen,
     body.is-ipad .envelope-screen {
         min-height: auto !important;
-        justify-content: flex-start !important;
-        padding-top: 8px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-top: 10px !important;
         padding-bottom: 25px !important;
-        margin-top: 0 !important;
+        margin: 0 auto !important;
+        max-width: 440px !important;
+        width: 100% !important;
     }
 
     .intro-vlu-top,
     body.view-mode-wide .intro-vlu-top,
     body.view-mode-mobile .intro-vlu-top,
     body.is-ipad .intro-vlu-top {
-        margin: 0 auto 10px !important;
+        max-width: 380px !important;
+        width: 100% !important;
+        margin: 0 auto 12px !important;
     }
 
     .cover-poster-card,
     body.view-mode-wide .cover-poster-card,
     body.view-mode-mobile .cover-poster-card,
     body.is-ipad .cover-poster-card {
+        max-width: 380px !important;
+        width: 100% !important;
         margin: 0 auto !important;
-    }
-
-    .cover-sash-ribbon,
-    body.view-mode-wide .cover-sash-ribbon,
-    body.view-mode-mobile .cover-sash-ribbon,
-    body.is-ipad .cover-sash-ribbon {
-        top: 48px !important;
     }
 
     .main-invitation,
     body.view-mode-wide .main-invitation,
     body.view-mode-mobile .main-invitation,
     body.is-ipad .main-invitation {
+        max-width: 520px !important;
+        width: 100% !important;
+        margin: 0 auto !important;
         margin-top: 8px !important;
-        padding-top: 10px !important;
+        padding: 15px 16px 80px !important;
+        position: relative !important;
+        z-index: 5 !important;
     }
 
-    .main-sash-ribbon,
-    body.view-mode-wide .main-sash-ribbon,
-    body.view-mode-mobile .main-sash-ribbon,
-    body.is-ipad .main-sash-ribbon {
-        top: 48px !important;
-    }
-}
-
-/* ========================================================
-   QUY TẮC CỠ CHỮ TO ĐẸP & GIỮ NGUYÊN 2 DÒNG CHO IPAD (DỌC & NGANG)
-   ======================================================== */
-@media (min-width: 681px) and (max-width: 1180px) {
     .is-ipad .desktop-letter-br,
     body.is-ipad .desktop-letter-br {
         display: none !important;
@@ -538,26 +547,26 @@ body.view-mode-wide .main-sash-ribbon {
     body.is-ipad.view-mode-wide .invite-greeting-paragraph,
     body.is-ipad.view-mode-mobile .invite-greeting-paragraph {
         font-family: 'Playfair Display', serif !important;
-        font-size: 1.35rem !important; /* Cỡ chữ to đẹp, sang trọng trên màn hình iPad */
-        font-weight: 700 !important; /* IN ĐẬM RÕ NÉT */
-        line-height: 1.75 !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        line-height: 1.7 !important;
         text-align: center !important;
-        margin-bottom: 14px !important;
-        letter-spacing: 0.2px !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.1px !important;
     }
 
     .is-ipad .invite-guest-highlight,
     body.is-ipad .invite-guest-highlight {
-        font-size: 1.45rem !important;
+        font-size: 1.25rem !important;
         color: #D98A00 !important;
         font-style: italic !important;
         font-weight: 800 !important;
-        padding: 0 4px !important;
+        padding: 0 3px !important;
     }
 
     .is-ipad .invite-graduate-highlight,
     body.is-ipad .invite-graduate-highlight {
-        font-size: 1.35rem !important;
+        font-size: 1.15rem !important;
         color: #8B1E1E !important;
         font-style: italic !important;
         font-weight: 700 !important;
@@ -566,10 +575,10 @@ body.view-mode-wide .main-sash-ribbon {
 
     .is-ipad .invite-sub-paragraph,
     body.is-ipad .invite-sub-paragraph {
-        font-size: 1.05rem !important;
-        line-height: 1.7 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.65 !important;
         text-align: center !important;
-        margin-bottom: 22px !important;
+        margin-bottom: 20px !important;
     }
 }
 
