@@ -1065,22 +1065,38 @@ body.view-mode-mobile .mobile-only-br {
     margin-bottom: 14px;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 680px), (orientation: landscape) and (max-height: 650px) {
     .desktop-letter-br {
         display: none !important;
     }
     .mobile-only-br {
         display: inline !important;
     }
+    .invitation-letter-body {
+        padding: 16px 10px !important;
+    }
     .invite-greeting-paragraph {
         text-align: center !important;
-        font-size: 1.15rem !important;
-        line-height: 1.7 !important;
+        font-size: 0.98rem !important; /* Thu nhỏ cỡ chữ chuẩn để 2 dòng không bị rớt chữ trên iPhone/iOS */
+        line-height: 1.65 !important;
         margin-bottom: 12px !important;
+        letter-spacing: 0px !important;
+    }
+    .invite-guest-highlight {
+        font-size: 1.06em !important;
+        padding: 0 1px !important;
+        letter-spacing: 0px !important;
+    }
+    .invite-graduate-highlight {
+        font-size: 1em !important;
+        white-space: nowrap !important;
+        letter-spacing: 0px !important;
     }
     .invite-sub-paragraph {
-        line-height: 1.7 !important;
-        font-size: 0.95rem !important;
+        text-align: center !important;
+        line-height: 1.6 !important;
+        font-size: 0.86rem !important;
+        margin-bottom: 18px !important;
     }
 }
 
@@ -2505,12 +2521,12 @@ body.view-mode-mobile .edit-card-btn {
         position: fixed !important;
         top: 6px !important;
         bottom: 6px !important;
-        left: 8px !important;
+        left: 4px !important;
         right: auto !important;
         height: calc(100vh - 12px) !important;
         max-height: calc(100vh - 12px) !important;
         width: auto !important;
-        z-index: 9999 !important;
+        z-index: 10 !important;
         filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
         pointer-events: none !important;
     }
@@ -2518,13 +2534,13 @@ body.view-mode-mobile .edit-card-btn {
     body.is-samsung-android .main-invitation,
     body.is-samsung-android.view-mode-mobile .main-invitation,
     body.is-samsung-android.view-mode-wide .main-invitation {
-        max-width: min(375px, calc(100vw - 180px)) !important;
+        max-width: min(390px, calc(100vw - 120px)) !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding: 10px 14px 80px !important;
+        padding: 10px 10px 80px !important;
         box-sizing: border-box !important;
         position: relative !important;
-        z-index: 5 !important;
+        z-index: 20 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2532,12 +2548,12 @@ body.view-mode-mobile .edit-card-btn {
     body.is-samsung-android .envelope-screen,
     body.is-samsung-android.view-mode-mobile .envelope-screen,
     body.is-samsung-android.view-mode-wide .envelope-screen {
-        max-width: min(375px, calc(100vw - 180px)) !important;
+        max-width: min(390px, calc(100vw - 120px)) !important;
         width: 100% !important;
         margin: 0 auto !important;
         box-sizing: border-box !important;
         position: relative !important;
-        z-index: 5 !important;
+        z-index: 20 !important;
         transform: none !important;
         filter: none !important;
     }
@@ -2778,16 +2794,129 @@ body.view-mode-mobile .invite-star-tag {
     margin: 0 auto 10px !important;
 }
 
+body.view-mode-mobile .invitation-letter-body {
+    padding: 16px 10px !important;
+}
+
 body.view-mode-mobile .invite-greeting-paragraph {
-    font-size: 1.15rem !important;
+    font-size: 0.98rem !important;
     text-align: center !important;
-    line-height: 1.7 !important;
+    line-height: 1.65 !important;
     margin-bottom: 12px !important;
+    letter-spacing: 0px !important;
+}
+
+body.view-mode-mobile .invite-guest-highlight {
+    font-size: 1.06em !important;
+    padding: 0 1px !important;
+    letter-spacing: 0px !important;
+}
+
+body.view-mode-mobile .invite-graduate-highlight {
+    font-size: 1em !important;
+    white-space: nowrap !important;
+    letter-spacing: 0px !important;
 }
 
 body.view-mode-mobile .invite-sub-paragraph {
-    line-height: 1.7 !important;
-    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    font-size: 0.86rem !important;
+    text-align: center !important;
+    margin-bottom: 18px !important;
+}
+
+/* ÁP DỤNG ĐỘC QUYỀN CHO THIẾT BỊ IPHONE, IOS */
+body.is-ios .invitation-letter-body,
+.is-ios .invitation-letter-body {
+    padding: 16px 10px !important;
+}
+
+body.is-ios .desktop-letter-br,
+.is-ios .desktop-letter-br {
+    display: none !important;
+}
+
+body.is-ios .mobile-only-br,
+.is-ios .mobile-only-br {
+    display: inline !important;
+}
+
+body.is-ios .invite-greeting-paragraph,
+.is-ios .invite-greeting-paragraph {
+    font-size: 0.96rem !important;
+    text-align: center !important;
+    line-height: 1.65 !important;
+    margin-bottom: 12px !important;
+    letter-spacing: -0.1px !important;
+}
+
+body.is-ios .invite-guest-highlight,
+.is-ios .invite-guest-highlight {
+    font-size: 1.05em !important;
+    padding: 0 1px !important;
+    letter-spacing: -0.1px !important;
+}
+
+body.is-ios .invite-graduate-highlight,
+.is-ios .invite-graduate-highlight {
+    font-size: 1em !important;
+    white-space: nowrap !important;
+}
+
+body.is-ios .invite-sub-paragraph,
+.is-ios .invite-sub-paragraph {
+    font-size: 0.86rem !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    margin-bottom: 18px !important;
+}
+
+/* ÁP DỤNG ĐỘC QUYỀN CHO THIẾT BỊ SAMSUNG & ANDROID */
+body.is-samsung-android .invitation-letter-body,
+.is-samsung-android .invitation-letter-body {
+    padding: 16px 8px !important;
+}
+
+body.is-samsung-android .desktop-letter-br,
+.is-samsung-android .desktop-letter-br {
+    display: none !important;
+}
+
+body.is-samsung-android .mobile-only-br,
+.is-samsung-android .mobile-only-br {
+    display: inline !important;
+}
+
+body.is-samsung-android .invite-greeting-paragraph,
+.is-samsung-android .invite-greeting-paragraph {
+    font-size: 0.94rem !important; /* Thu nhỏ để khớp chuẩn xác 2 dòng trên Samsung/Android */
+    text-align: center !important;
+    line-height: 1.6 !important;
+    margin-bottom: 12px !important;
+    letter-spacing: -0.15px !important;
+}
+
+body.is-samsung-android .invite-guest-highlight,
+.is-samsung-android .invite-guest-highlight {
+    font-size: 1.04em !important;
+    padding: 0 1px !important;
+    letter-spacing: -0.15px !important;
+}
+
+body.is-samsung-android .invite-graduate-highlight,
+.is-samsung-android .invite-graduate-highlight {
+    font-size: 1em !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.15px !important;
+}
+
+body.is-samsung-android .invite-sub-paragraph,
+.is-samsung-android .invite-sub-paragraph {
+    font-size: 0.85rem !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    margin-bottom: 18px !important;
+    letter-spacing: -0.05px !important;
 }
 
 /* ---- SƠ ĐỒ MẶT BẰNG: toàn bộ chiều rộng ---- */

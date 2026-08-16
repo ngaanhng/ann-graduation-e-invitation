@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- AUTO-DETECT REAL MOBILE DEVICE & SAMSUNG/ANDROID SASH FIX ---
+    // --- AUTO-DETECT REAL MOBILE DEVICE & SAMSUNG/ANDROID & IPHONE/IOS FIX ---
     function applyAutoMobileMode() {
         const isAndroid = /Android|Samsung|Linux arm/i.test(navigator.userAgent) || 
                           (!/iPhone|iPad|iPod/i.test(navigator.userAgent) && (('ontouchstart' in window) || navigator.maxTouchPoints > 0) && !navigator.userAgent.includes('Macintosh') && !navigator.userAgent.includes('Windows'));
@@ -562,6 +562,16 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.body.classList.remove('is-samsung-android');
             document.documentElement.classList.remove('is-samsung-android');
+        }
+
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || 
+                      (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1);
+        if (isIOS) {
+            document.body.classList.add('is-ios');
+            document.documentElement.classList.add('is-ios');
+        } else {
+            document.body.classList.remove('is-ios');
+            document.documentElement.classList.remove('is-ios');
         }
 
         const isSmallMobilePortrait = window.innerWidth <= 680;
