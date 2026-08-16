@@ -916,6 +916,29 @@ body.view-mode-wide .main-sash-ribbon {
     margin-bottom: 0;
 }
 
+.quote-phrase-nowrap {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.wide-br {
+    display: none;
+}
+
+@media (min-width: 681px) {
+    .wide-br {
+        display: inline;
+    }
+}
+
+body.view-mode-mobile .wide-br {
+    display: none !important;
+}
+
+body.view-mode-wide .wide-br {
+    display: inline !important;
+}
+
 .quote-card-mockup p strong {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -1010,12 +1033,55 @@ body.view-mode-wide .main-sash-ribbon {
     }
 }
 
+.desktop-letter-br {
+    display: inline;
+}
+
+.mobile-only-br {
+    display: none;
+}
+
+body.view-mode-wide .desktop-letter-br {
+    display: inline !important;
+}
+
+body.view-mode-wide .mobile-only-br {
+    display: none !important;
+}
+
+body.view-mode-mobile .desktop-letter-br {
+    display: none !important;
+}
+
+body.view-mode-mobile .mobile-only-br {
+    display: inline !important;
+}
+
 .invite-greeting-paragraph {
     font-family: 'Playfair Display', serif;
     font-size: 1.3rem;
     line-height: 1.8;
     color: #2D1515;
     margin-bottom: 14px;
+}
+
+@media (max-width: 680px) {
+    .desktop-letter-br {
+        display: none !important;
+    }
+    .mobile-only-br {
+        display: inline !important;
+    }
+    .invite-greeting-paragraph {
+        text-align: center !important;
+        font-size: 1.15rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 12px !important;
+    }
+    .invite-sub-paragraph {
+        line-height: 1.7 !important;
+        font-size: 0.95rem !important;
+    }
 }
 
 /* BRIGHT RADIANT GOLD COLOR FOR GUEST INVITED NAME (EASY TO READ) */
@@ -1032,6 +1098,8 @@ body.view-mode-wide .main-sash-ribbon {
     color: #8B1E1E;
     font-style: italic;
     font-weight: 700;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 .invite-sub-paragraph {
@@ -1448,16 +1516,15 @@ body.is-ipad .mobile-video-overlay-link {
 }
 
 .video-caption-text {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     color: #5C4343;
     margin-top: 12px;
-    line-height: 1.55;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
+    line-height: 1.65;
+    display: block;
+    text-align: justify;
+    text-justify: inter-word;
     width: 100%;
     max-width: 320px;
-    text-align: left;
 }
 
 .video-caption-text.full-width-caption {
@@ -1466,8 +1533,10 @@ body.is-ipad .mobile-video-overlay-link {
 
 .video-caption-text i {
     color: #C59B27;
-    margin-top: 3px;
+    margin-right: 6px;
     font-size: 1rem;
+    display: inline;
+    vertical-align: -1px;
 }
 
 @media (max-width: 768px) {
@@ -1490,10 +1559,10 @@ body.is-ipad .mobile-video-overlay-link {
 /* ENLARGED & ULTRA-BOLD MODERN SECTION TITLES (EASY TO READ) */
 .section-title {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.25rem;
+    font-size: clamp(1.15rem, 2.8vw, 1.35rem);
     font-weight: 900; /* Ultra-bold crisp typography */
     color: #8B1E1E;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     margin-bottom: 20px;
     display: flex;
@@ -1505,7 +1574,7 @@ body.is-ipad .mobile-video-overlay-link {
 }
 
 .section-title i {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: #8B1E1E;
 }
 
@@ -1518,6 +1587,17 @@ body.is-ipad .mobile-video-overlay-link {
 @media (max-width: 768px) {
     .location-card-content {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 680px) {
+    .location-section .section-title {
+        font-size: clamp(1.15rem, 2.8vw, 1.35rem) !important;
+        font-weight: 900 !important;
+        letter-spacing: 1.5px !important;
+    }
+    .location-section .section-title i {
+        font-size: 1.35rem !important;
     }
 }
 
@@ -1830,12 +1910,20 @@ body.view-mode-mobile .invitation-footer {
 }
 
 .modal-header h3 {
-    font-family: var(--font-heading);
-    color: var(--color-gold);
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    font-weight: 800;
     font-size: 1.25rem;
     display: flex;
     align-items: center;
     gap: 10px;
+    letter-spacing: 0.3px;
+}
+
+.modal-header h3 i {
+    color: #FCE788; /* Bright Radiant Gold */
+    filter: drop-shadow(0 0 6px rgba(252, 231, 136, 0.6));
+    font-size: 1.15em;
 }
 
 .close-modal-btn {
@@ -1878,6 +1966,9 @@ body.view-mode-mobile .invitation-footer {
         padding: 14px 16px;
     }
     .modal-header h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: #FFFFFF;
+        font-weight: 800;
         font-size: 1.05rem;
     }
     .modal-body {
@@ -1996,7 +2087,7 @@ body.view-mode-mobile .invitation-footer {
 
 .modal-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 14px;
     margin-top: 25px;
     padding-top: 18px;
@@ -2478,6 +2569,17 @@ body.view-mode-mobile .edit-card-btn {
     }
 }
 
+body.view-mode-wide .section-title,
+body.view-mode-wide .location-section .section-title {
+    font-size: 1.35rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.5px !important;
+}
+
+body.view-mode-wide .location-section .section-title i {
+    font-size: 1.45rem !important;
+}
+
 /* Header VLU logo bar bên trong thiệp */
 body.view-mode-mobile .invitation-header {
     display: flex !important;
@@ -2648,10 +2750,17 @@ body.view-mode-mobile .video-caption-text {
     font-size: 0.85rem !important;
 }
 
-/* ---- SECTION TITLE thu nhỏ ---- */
-body.view-mode-mobile .section-title {
-    font-size: 1.1rem !important;
+/* ---- SECTION TITLE (BẰNG VỚI TIÊU ĐỀ SƠ ĐỒ MẶT BẰNG TRÊN MOBILE) ---- */
+body.view-mode-mobile .section-title,
+body.view-mode-mobile .location-section .section-title {
+    font-size: clamp(1.15rem, 2.8vw, 1.35rem) !important;
+    font-weight: 900 !important;
+    letter-spacing: 1.5px !important;
     margin-bottom: 18px !important;
+}
+
+body.view-mode-mobile .location-section .section-title i {
+    font-size: 1.35rem !important;
 }
 
 body.view-mode-mobile .cc-header {
@@ -2670,7 +2779,15 @@ body.view-mode-mobile .invite-star-tag {
 }
 
 body.view-mode-mobile .invite-greeting-paragraph {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
+    text-align: center !important;
+    line-height: 1.7 !important;
+    margin-bottom: 12px !important;
+}
+
+body.view-mode-mobile .invite-sub-paragraph {
+    line-height: 1.7 !important;
+    font-size: 0.95rem !important;
 }
 
 /* ---- SƠ ĐỒ MẶT BẰNG: toàn bộ chiều rộng ---- */

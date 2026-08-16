@@ -1,6 +1,6 @@
 /* ==========================================================================
    VAN LANG UNIVERSITY GRADUATION E-INVITATION CARD JAVASCRIPT LOGIC
-   Tân Cử Nhân: Nguyễn Nga Anh (Truyền thông đa phương tiện)
+   Tân khoa: Nguyễn Nga Anh (Truyền thông đa phương tiện)
    Includes Continuous Sparkling White Glitter Stars Animation
    ========================================================================== */
 
@@ -11,16 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
         graduateName: "Nguyễn Nga Anh",
         guestInvitedName: "Quý Khách",
         degree: "Cử Nhân · Truyền thông đa phương tiện",
-        ceremonyDate: "2027-08-09", // 09.08.2027
-        displayDateText: "09.08.2027",
+        ceremonyDate: "2027-08-10", // 10.08.2027
+        displayDateText: "10.08.2027",
         ceremonyTime: "10:30 sáng",
-        checkinMinutes: "30",
+        checkinMinutes: "10:00 sáng",
         venueName: "Trường Đại học Văn Lang",
         contactPhone: "0987 654 321"
     };
 
     // Load custom data from localStorage or use defaults
     let appData = JSON.parse(localStorage.getItem('vlu_grad_card_data')) || { ...defaultData };
+    if (!appData.displayDateText || appData.displayDateText === "09.08.2027") {
+        appData.displayDateText = "10.08.2027";
+        appData.ceremonyDate = "2027-08-10";
+    }
 
     // Parse personalized guest name from URL query parameters (e.g. ?to=Anh+Nam or ?guest=Anh+Nam or ?name=Anh+Nam or ?n=Anh+Nam)
     const urlParams = new URLSearchParams(window.location.search);
@@ -179,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (displayGraduateName) displayGraduateName.textContent = appData.graduateName;
         if (displayGraduateDegree) displayGraduateDegree.textContent = appData.degree;
         
-        if (displayDate) displayDate.textContent = appData.displayDateText || "09.08.2027";
+        if (displayDate) displayDate.textContent = appData.displayDateText || "10.08.2027";
         if (displayTime) displayTime.textContent = appData.ceremonyTime;
         if (displayCheckinMinutes) displayCheckinMinutes.textContent = appData.checkinMinutes;
         if (displayPhone) displayPhone.textContent = appData.contactPhone;
@@ -188,12 +192,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Hero Header Bindings
         if (heroGuestInvitedName) heroGuestInvitedName.textContent = appData.guestInvitedName || "Quý Khách";
-        if (heroBadgeDate) heroBadgeDate.textContent = `${appData.displayDateText || "09.08.2027"} · ${appData.ceremonyTime}`;
-        if (heroBadgeNotice) heroBadgeNotice.textContent = `Vui lòng có mặt trước ${appData.checkinMinutes} phút để check-in`;
+        if (heroBadgeDate) heroBadgeDate.textContent = `${appData.displayDateText || "10.08.2027"} · ${appData.ceremonyTime}`;
+        if (heroBadgeNotice) {
+            const checkinVal = appData.checkinMinutes || "10:00 sáng";
+            if (/^\d+$/.test(checkinVal)) {
+                heroBadgeNotice.textContent = `Vui lòng có mặt trước ${checkinVal} phút để check-in`;
+            } else {
+                heroBadgeNotice.textContent = `Vui lòng có mặt vào khoảng lúc ${checkinVal} để check-in`;
+            }
+        }
 
         // Dedicated Letter Card Bindings
         if (letterGuestName) letterGuestName.textContent = appData.guestInvitedName || "Quý Khách";
-        if (letterDateText) letterDateText.textContent = appData.displayDateText || "09.08.2027";
+        if (letterDateText) letterDateText.textContent = appData.displayDateText || "10.08.2027";
         if (letterTimeText) letterTimeText.textContent = appData.ceremonyTime;
 
         // Populate Edit Form Inputs safely
@@ -208,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (editGuestInvitedName) editGuestInvitedName.value = appData.guestInvitedName || "Quý Khách";
         if (editGraduateName) editGraduateName.value = appData.graduateName;
         if (editDegree) editDegree.value = appData.degree;
-        if (editDate) editDate.value = appData.displayDateText || "09.08.2027";
+        if (editDate) editDate.value = appData.displayDateText || "10.08.2027";
         if (editTime) editTime.value = appData.ceremonyTime;
         if (editCheckinMinutes) editCheckinMinutes.value = appData.checkinMinutes;
         if (editPhone) editPhone.value = appData.contactPhone;
@@ -319,7 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countdownInterval) clearInterval(countdownInterval);
 
         function updateTimer() {
-            const targetTime = new Date(`2027-08-09T10:30:00`).getTime();
+            const targetTime = new Date(`2027-08-10T10:30:00`).getTime();
             const now = new Date().getTime();
             const difference = targetTime - now;
 
@@ -355,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const year = 2027;
         const month = 7; // August
-        const targetDay = 9; // 09.08.2027
+        const targetDay = 10; // 10.08.2027
 
         if (calMonthYear) calMonthYear.textContent = `Tháng 8`;
 
