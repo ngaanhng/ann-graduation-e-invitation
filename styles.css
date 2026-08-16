@@ -493,8 +493,8 @@ body.view-mode-wide .main-sash-ribbon {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        justify-content: center !important;
-        padding-top: 10px !important;
+        justify-content: flex-start !important; /* ĐẨY NỘI DUNG LÊN ĐẦU, KHÔNG ĐỂ DƯỚI ĐÁY */
+        padding-top: 15px !important;
         padding-bottom: 25px !important;
         margin: 0 auto !important;
         max-width: 440px !important;
@@ -579,6 +579,15 @@ body.view-mode-wide .main-sash-ribbon {
         line-height: 1.65 !important;
         text-align: center !important;
         margin-bottom: 20px !important;
+    }
+
+    /* ĐẶC TRỊ: ĐẢM BẢO KHUNG THIỆP SAU KHI BẤM PLAY LUÔN NẰM Ở TRÊN ĐẦU */
+    body,
+    body.view-mode-wide,
+    body.view-mode-mobile,
+    body.is-ipad {
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
     }
 }
 
