@@ -245,19 +245,37 @@ document.addEventListener('DOMContentLoaded', () => {
         envelopeScreen.style.transition = 'opacity 0.6s ease';
         
         setTimeout(() => {
+            envelopeScreen.style.setProperty('display', 'none', 'important');
             envelopeScreen.classList.add('hidden');
+            
+            mainInvitation.style.removeProperty('display');
             mainInvitation.classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
             applyAutoMobileMode();
+            
+            setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }, 50);
         }, 600);
     }
 
     if (reopenEnvelopeBtn) {
         reopenEnvelopeBtn.addEventListener('click', () => {
+            mainInvitation.style.setProperty('display', 'none', 'important');
             mainInvitation.classList.add('hidden');
+            
+            envelopeScreen.style.removeProperty('display');
             envelopeScreen.classList.remove('hidden');
             envelopeScreen.style.opacity = '1';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            
             applyAutoMobileMode();
         });
     }

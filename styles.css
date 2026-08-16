@@ -126,8 +126,25 @@ body {
     pointer-events: none;
 }
 
-.hidden {
+.hidden,
+body .hidden,
+html body .hidden,
+.envelope-screen.hidden,
+.main-invitation.hidden,
+body.is-ipad .envelope-screen.hidden,
+body.is-ipad .main-invitation.hidden,
+body.view-mode-wide .envelope-screen.hidden,
+body.view-mode-mobile .envelope-screen.hidden {
     display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
 }
 
 /* Floating Music Controls with BẬT / TẮT Label Below (Shifted Down Below Top Switcher Bar) */
@@ -485,15 +502,15 @@ body.view-mode-wide .main-sash-ribbon {
         display: none !important;
     }
 
-    .envelope-screen,
-    body.view-mode-wide .envelope-screen,
-    body.view-mode-mobile .envelope-screen,
-    body.is-ipad .envelope-screen {
+    .envelope-screen:not(.hidden),
+    body.view-mode-wide .envelope-screen:not(.hidden),
+    body.view-mode-mobile .envelope-screen:not(.hidden),
+    body.is-ipad .envelope-screen:not(.hidden) {
         min-height: auto !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
-        justify-content: flex-start !important; /* ĐẨY NỘI DUNG LÊN ĐẦU, KHÔNG ĐỂ DƯỚI ĐÁY */
+        justify-content: flex-start !important;
         padding-top: 15px !important;
         padding-bottom: 25px !important;
         margin: 0 auto !important;
@@ -519,17 +536,19 @@ body.view-mode-wide .main-sash-ribbon {
         margin: 0 auto !important;
     }
 
-    .main-invitation,
-    body.view-mode-wide .main-invitation,
-    body.view-mode-mobile .main-invitation,
-    body.is-ipad .main-invitation {
+    .main-invitation:not(.hidden),
+    body.view-mode-wide .main-invitation:not(.hidden),
+    body.view-mode-mobile .main-invitation:not(.hidden),
+    body.is-ipad .main-invitation:not(.hidden) {
         max-width: 520px !important;
         width: 100% !important;
         margin: 0 auto !important;
-        margin-top: 8px !important;
+        margin-top: 10px !important;
         padding: 15px 16px 80px !important;
         position: relative !important;
         z-index: 5 !important;
+        top: 0 !important;
+        display: block !important;
     }
 
     .is-ipad .desktop-letter-br,
