@@ -604,24 +604,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // ĐẶC TRỊ SAMSUNG / ANDROID KHI XOAY NGANG
+        // ĐẶC TRỊ SAMSUNG / ANDROID KHI XOAY NGANG: ẨN RIÊNG PHẦN SASH BÊN TRONG THIỆP
         if (isAndroid && isMobileLandscape) {
             const mainSash = document.querySelector('.main-sash-ribbon');
             const coverSash = document.querySelector('.cover-sash-ribbon');
-            [mainSash, coverSash].forEach(sash => {
-                if (sash) {
-                    sash.style.setProperty('position', 'fixed', 'important');
-                    sash.style.setProperty('left', '8px', 'important');
-                    sash.style.setProperty('right', 'auto', 'important');
-                    sash.style.setProperty('top', '6px', 'important');
-                    sash.style.setProperty('bottom', '6px', 'important');
-                    sash.style.setProperty('height', 'calc(100vh - 12px)', 'important');
-                    sash.style.setProperty('max-height', 'calc(100vh - 12px)', 'important');
-                    sash.style.setProperty('width', 'auto', 'important');
-                    sash.style.setProperty('z-index', '99999', 'important');
-                    sash.style.setProperty('display', 'block', 'important');
-                }
-            });
+            if (mainSash) {
+                mainSash.style.setProperty('display', 'none', 'important');
+            }
+            if (coverSash) {
+                coverSash.style.setProperty('position', 'fixed', 'important');
+                coverSash.style.setProperty('left', '4px', 'important');
+                coverSash.style.setProperty('right', 'auto', 'important');
+                coverSash.style.setProperty('top', '6px', 'important');
+                coverSash.style.setProperty('bottom', '6px', 'important');
+                coverSash.style.setProperty('height', 'calc(100vh - 12px)', 'important');
+                coverSash.style.setProperty('max-height', 'calc(100vh - 12px)', 'important');
+                coverSash.style.setProperty('width', 'auto', 'important');
+                coverSash.style.setProperty('z-index', '99999', 'important');
+                coverSash.style.setProperty('display', 'block', 'important');
+            }
         }
     }
 

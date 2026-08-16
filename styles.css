@@ -480,20 +480,13 @@ body.view-mode-wide .main-sash-ribbon {
         padding-top: 8px !important;
         padding-bottom: 25px !important;
         margin-top: 0 !important;
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important;
-        margin-right: auto !important;
     }
 
     .intro-vlu-top,
     body.view-mode-wide .intro-vlu-top,
     body.view-mode-mobile .intro-vlu-top,
     body.is-ipad .intro-vlu-top {
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important;
-        margin-right: auto !important;
-        margin-top: 0 !important;
-        margin-bottom: 10px !important;
+        margin: 0 auto 10px !important;
     }
 
     .cover-poster-card,
@@ -507,49 +500,22 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon,
     body.view-mode-mobile .cover-sash-ribbon,
     body.is-ipad .cover-sash-ribbon {
-        display: block !important;
-        position: fixed !important;
         top: 48px !important;
-        bottom: 12px !important;
-        left: 8px !important; /* DÍNH SÁT RÌA TRÁI NGOÀI CÙNG IPAD DỌC */
-        right: auto !important;
-        height: calc(100vh - 70px) !important;
-        max-height: calc(100vh - 70px) !important;
-        width: auto !important;
-        z-index: 9999 !important;
-        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
-        pointer-events: none !important;
     }
 
     .main-invitation,
     body.view-mode-wide .main-invitation,
     body.view-mode-mobile .main-invitation,
     body.is-ipad .main-invitation {
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important;
-        margin-right: auto !important;
         margin-top: 8px !important;
         padding-top: 10px !important;
-        position: relative !important;
-        z-index: 5 !important;
     }
 
     .main-sash-ribbon,
     body.view-mode-wide .main-sash-ribbon,
     body.view-mode-mobile .main-sash-ribbon,
     body.is-ipad .main-sash-ribbon {
-        display: block !important;
-        position: fixed !important;
         top: 48px !important;
-        bottom: 12px !important;
-        left: 8px !important; /* DÍNH SÁT RÌA TRÁI NGOÀI CÙNG IPAD DỌC */
-        right: auto !important;
-        height: calc(100vh - 70px) !important;
-        max-height: calc(100vh - 70px) !important;
-        width: auto !important;
-        z-index: 9999 !important;
-        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
-        pointer-events: none !important;
     }
 }
 
@@ -2604,19 +2570,24 @@ body.view-mode-mobile .edit-card-btn {
         z-index: 0 !important;
     }
 
+    /* ẨN RIÊNG DẢI SASH BÊN TRONG THIỆP (MAIN-SASH-RIBBON) TRÊN SAMSUNG / ANDROID KHI XOAY NGANG */
     body.is-samsung-android .main-sash-ribbon,
-    body.is-samsung-android .cover-sash-ribbon,
     body.is-samsung-android.view-mode-mobile .main-sash-ribbon,
-    body.is-samsung-android.view-mode-mobile .cover-sash-ribbon,
     body.is-samsung-android.view-mode-wide .main-sash-ribbon,
+    .is-samsung-android .main-sash-ribbon {
+        display: none !important;
+    }
+
+    /* DẢI SASH TRANG BÌA (COVER-SASH-RIBBON) */
+    body.is-samsung-android .cover-sash-ribbon,
+    body.is-samsung-android.view-mode-mobile .cover-sash-ribbon,
     body.is-samsung-android.view-mode-wide .cover-sash-ribbon,
-    .is-samsung-android .main-sash-ribbon,
     .is-samsung-android .cover-sash-ribbon {
         display: block !important;
         position: fixed !important;
         top: 6px !important;
         bottom: 6px !important;
-        left: 4px !important; /* DÍNH SÁT RÌA TRÁI NGOÀI CÙNG MÀN HÌNH */
+        left: 4px !important;
         right: auto !important;
         height: calc(100vh - 12px) !important;
         max-height: calc(100vh - 12px) !important;
@@ -2628,15 +2599,15 @@ body.view-mode-mobile .edit-card-btn {
         animation: none !important;
     }
 
+    /* KHUNG THIỆP BÊN TRONG CĂN CHÍNH GIỮA THOÁNG ĐẸP 100% */
     body.is-samsung-android .main-invitation,
     body.is-samsung-android.view-mode-mobile .main-invitation,
     body.is-samsung-android.view-mode-wide .main-invitation,
     .is-samsung-android .main-invitation {
-        max-width: min(390px, calc(100vw - 160px)) !important;
+        max-width: min(420px, calc(100vw - 32px)) !important;
         width: 100% !important;
-        margin-left: max(85px, calc(50vw - 195px)) !important; /* DỊCH PHẢI ĐỂ CÁCH XA SASH, TUYỆT ĐỐI KHÔNG BỊ SASH ĐÈ */
-        margin-right: auto !important;
-        padding: 10px 10px 80px !important;
+        margin: 0 auto !important;
+        padding: 10px 14px 80px !important;
         box-sizing: border-box !important;
         position: relative !important;
         z-index: 20 !important;
@@ -2655,19 +2626,15 @@ body.view-mode-mobile .edit-card-btn {
         box-sizing: border-box !important;
         position: relative !important;
         z-index: 20 !important;
-        transform: none !important;
-        filter: none !important;
     }
 
     body.is-samsung-android .intro-vlu-top,
     body.is-samsung-android.view-mode-mobile .intro-vlu-top,
     body.is-samsung-android.view-mode-wide .intro-vlu-top,
     .is-samsung-android .intro-vlu-top {
-        max-width: min(390px, calc(100vw - 160px)) !important;
+        max-width: min(420px, calc(100vw - 32px)) !important;
         width: 100% !important;
-        margin-left: max(85px, calc(50vw - 195px)) !important;
-        margin-right: auto !important;
-        margin-bottom: 16px !important;
+        margin: 0 auto 16px !important;
         border-radius: 4px !important;
         box-sizing: border-box !important;
     }
@@ -2680,8 +2647,8 @@ body.view-mode-mobile .edit-card-btn {
     }
 }
 
-/* Khi xem Màn Hình Rộng trên Desktop/Laptop (màn hình >= 1025px): khung 860px to rõ, dài đẹp */
-@media (min-width: 1025px) and (min-height: 521px) {
+/* Khi xem Màn Hình Rộng trên Desktop/Laptop: khung 860px to rõ, dài đẹp */
+@media (min-width: 681px) and (min-height: 521px) {
     body:not(.is-samsung-android).view-mode-wide .main-invitation {
         max-width: 860px !important;
         margin: 15px auto 0 !important;
@@ -3047,73 +3014,5 @@ body.view-mode-mobile .cover-laptop-recommend-hint {
     margin-top: 4px !important;
     margin-bottom: 75px !important;
     font-size: 0.78rem !important;
-}
-
-/* =========================================================================
-   QUY TẮC ĐỘC QUYỀN CHO IPAD KHI XOAY DỌC Ở CHẾ ĐỘ MÀN HÌNH RỘNG
-   - SASH LUÔN DÍNH SÁT RÌA TRÁI NGOÀI CÙNG (LEFT: 6PX !IMPORTANT)
-   - KHUNG THIỆP ĐƯỢC CĂN TRÁNH SASH, TUYỆT ĐỐI KHÔNG BỊ SASH ĐÈ LÊN NỘI DUNG
-   ========================================================================= */
-@media (orientation: portrait) and (min-width: 681px) and (max-width: 1180px) {
-    html body .main-sash-ribbon,
-    html body .cover-sash-ribbon,
-    html body.view-mode-wide .main-sash-ribbon,
-    html body.view-mode-wide .cover-sash-ribbon,
-    html body.is-ipad .main-sash-ribbon,
-    html body.is-ipad .cover-sash-ribbon,
-    body.view-mode-wide .main-sash-ribbon,
-    body.view-mode-wide .cover-sash-ribbon,
-    .main-sash-ribbon,
-    .cover-sash-ribbon {
-        display: block !important;
-        position: fixed !important;
-        top: 48px !important;
-        bottom: 12px !important;
-        left: 6px !important; /* DÍNH SÁT RÌA TRÁI NGOÀI CÙNG MÀN HÌNH IPAD */
-        right: auto !important;
-        height: calc(100vh - 70px) !important;
-        max-height: calc(100vh - 70px) !important;
-        width: auto !important;
-        z-index: 9999 !important;
-        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
-        pointer-events: none !important;
-        transform: none !important;
-        animation: none !important;
-    }
-
-    html body.view-mode-wide .main-invitation,
-    html body.is-ipad .main-invitation,
-    body.view-mode-wide .main-invitation,
-    body.is-ipad .main-invitation,
-    .main-invitation {
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important; /* CĂN TRÁNH SASH, KHÔNG BỊ CHE */
-        margin-right: auto !important;
-        margin-top: 8px !important;
-        padding-top: 10px !important;
-        position: relative !important;
-        z-index: 5 !important;
-    }
-
-    html body.view-mode-wide .envelope-screen,
-    html body.is-ipad .envelope-screen,
-    body.view-mode-wide .envelope-screen,
-    body.is-ipad .envelope-screen,
-    .envelope-screen {
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important;
-        margin-right: auto !important;
-    }
-
-    html body.view-mode-wide .intro-vlu-top,
-    html body.is-ipad .intro-vlu-top,
-    body.view-mode-wide .intro-vlu-top,
-    body.is-ipad .intro-vlu-top,
-    .intro-vlu-top {
-        max-width: min(640px, calc(100vw - 110px)) !important;
-        margin-left: max(85px, calc(50vw - 320px)) !important;
-        margin-right: auto !important;
-        margin-bottom: 10px !important;
-    }
 }
 
