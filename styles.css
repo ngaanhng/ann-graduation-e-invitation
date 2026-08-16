@@ -484,22 +484,36 @@ body.view-mode-wide .main-sash-ribbon {
 
 /* ========================================================
    QUY TẮC ĐỘC QUYỀN CHO IPAD KHI XOAY DỌC
-   - GIỐNG NHƯ TRÊN IPHONE: ẨN DẢI SASH Ở MÀN HÌNH DỌC ĐỂ KHÔNG CHE NỘI DUNG
-   - KHUNG ĐẦU TRANG BÌA VÀ KHUNG THIỆP GỌN GÀNG, CĂN GIỮA ĐẸP NHƯ IPHONE
+   - THÊM DẢI SASH TRANG BÌA (COVER SASH) CHO CẢ MÀN HÌNH RỘNG VÀ KHUNG DI ĐỘNG ĐỒNG BỘ 100%
+   - ẨN DẢI SASH BÊN TRONG THIỆP ĐỂ TRÁNH CHE CHỮ
    ======================================================== */
 @media (orientation: portrait) and (min-width: 681px) and (max-width: 1180px) {
-    /* ẨN DẢI SASH Ở MÀN HÌNH DỌC IPAD ĐỂ GIỐNG NHƯ IPHONE */
+    /* ẨN DẢI SASH BÊN TRONG THIỆP (MAIN-SASH-RIBBON) */
     .main-sash-ribbon,
-    .cover-sash-ribbon,
     body.view-mode-wide .main-sash-ribbon,
-    body.view-mode-wide .cover-sash-ribbon,
     body.view-mode-mobile .main-sash-ribbon,
-    body.view-mode-mobile .cover-sash-ribbon,
     body.is-ipad .main-sash-ribbon,
-    body.is-ipad .cover-sash-ribbon,
-    .is-ipad .main-sash-ribbon,
-    .is-ipad .cover-sash-ribbon {
+    .is-ipad .main-sash-ribbon {
         display: none !important;
+    }
+
+    /* HIỂN THỊ DẢI SASH TRANG BÌA (COVER-SASH-RIBBON) CHO CẢ 2 CHẾ ĐỘ XEM ĐỒNG BỘ 100% */
+    .cover-sash-ribbon,
+    body.view-mode-wide .cover-sash-ribbon,
+    body.view-mode-mobile .cover-sash-ribbon,
+    body.is-ipad .cover-sash-ribbon,
+    .is-ipad .cover-sash-ribbon {
+        position: absolute !important;
+        top: 0px !important;
+        right: calc(100% + 16px) !important;
+        left: auto !important;
+        height: 440px !important;
+        max-height: 440px !important;
+        width: auto !important;
+        z-index: 10 !important;
+        display: block !important;
+        filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.5)) !important;
+        pointer-events: none !important;
     }
 
     .envelope-screen:not(.hidden),
@@ -513,9 +527,12 @@ body.view-mode-wide .main-sash-ribbon {
         justify-content: flex-start !important;
         padding-top: 15px !important;
         padding-bottom: 25px !important;
-        margin: 0 auto !important;
+        margin: 15px auto 40px !important;
         max-width: 440px !important;
         width: 100% !important;
+        position: relative !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
     }
 
     .intro-vlu-top,
