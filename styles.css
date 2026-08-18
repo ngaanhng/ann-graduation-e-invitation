@@ -1597,25 +1597,71 @@ body.view-mode-mobile .mobile-only-br {
     position: relative;
     overflow: hidden;
     background: #000000;
-    cursor: pointer;
 }
 
-.video-custom-thumbnail-img {
+/* On PC/Desktop (Màn Hình Rộng): Hide custom overlay so iframe plays inline directly */
+.video-custom-thumbnail-img,
+.video-play-center-btn {
+    display: none !important;
+}
+
+/* Only display custom thumbnail overlay on Mobile / Khung Di Động / iPhone / Samsung */
+@media (max-width: 768px) {
+    .video-custom-thumbnail-img {
+        display: block !important;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        pointer-events: none;
+        border-radius: 14px;
+    }
+
+    .video-play-center-btn {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 68px;
+        height: 48px;
+        background: rgba(28, 28, 28, 0.88);
+        border-radius: 12px;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 1.4rem;
+        z-index: 6;
+        pointer-events: none;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+body.view-mode-mobile .video-custom-thumbnail-img,
+body.is-ios .video-custom-thumbnail-img,
+body.is-samsung-android .video-custom-thumbnail-img {
+    display: block !important;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 5;
     pointer-events: none;
     border-radius: 14px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.video-play-center-btn {
+body.view-mode-mobile .video-play-center-btn,
+body.is-ios .video-play-center-btn,
+body.is-samsung-android .video-play-center-btn {
+    display: flex !important;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1624,7 +1670,6 @@ body.view-mode-mobile .mobile-only-br {
     height: 48px;
     background: rgba(28, 28, 28, 0.88);
     border-radius: 12px;
-    display: flex;
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
@@ -1633,12 +1678,22 @@ body.view-mode-mobile .mobile-only-br {
     pointer-events: none;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.2s ease, background 0.2s ease;
 }
 
-.drive-video-frame-box.custom-poster-box:hover .video-play-center-btn {
-    background: rgba(200, 16, 46, 0.95);
-    transform: translate(-50%, -50%) scale(1.08);
+body.view-mode-wide:not(.is-ios):not(.is-samsung-android) .video-custom-thumbnail-img,
+body.view-mode-wide:not(.is-ios):not(.is-samsung-android) .video-play-center-btn {
+    display: none !important;
+}
+
+body.view-mode-wide .drive-video-frame-box iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
 }
 
 /* MOBILE & IPAD DIRECT DRIVE PLAY OVERLAY */
