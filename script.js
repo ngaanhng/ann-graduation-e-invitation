@@ -675,6 +675,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- CUSTOM POSTER BOX DESKTOP HANDLER ---
+    document.querySelectorAll('.custom-poster-box').forEach(box => {
+        box.addEventListener('click', () => {
+            const thumb = box.querySelector('.video-custom-thumbnail-img');
+            const playBtn = box.querySelector('.video-play-center-btn');
+            if (thumb) thumb.style.opacity = '0';
+            if (playBtn) playBtn.style.opacity = '0';
+            setTimeout(() => {
+                if (thumb) thumb.style.display = 'none';
+                if (playBtn) playBtn.style.display = 'none';
+            }, 300);
+        });
+    });
+
     // Run Init
     init();
 });
