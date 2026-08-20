@@ -1974,6 +1974,27 @@ body.is-ipad .mobile-video-overlay-link {
     font-size: 1.1rem;
 }
 
+.parking-map-caption {
+    color: #5C4343 !important;
+    font-size: 0.88rem !important;
+    font-weight: 400 !important;
+    line-height: 1.65 !important;
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-top: 12px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.parking-map-caption i {
+    color: #C59B27 !important;
+    font-size: 1rem !important;
+    margin-right: 6px !important;
+    display: inline !important;
+    vertical-align: -1px !important;
+}
+
 .campus-map-img-wrapper:hover .campus-overview-img {
     transform: scale(1.02);
     filter: brightness(0.9);
