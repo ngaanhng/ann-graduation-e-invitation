@@ -44,16 +44,27 @@
         <source src="https://docs.google.com/uc?export=download&id=1-KwzbdjwwSYXmTSmGKDw95d0FGd9l_a1" type="audio/mpeg">
     </audio>
 
-    <!-- LUXURY DEVICE VIEW MODE SWITCHER (VLU BRAND IDENTITY) -->
-    <div class="device-switcher-bar" id="deviceSwitcherBar">
-        <div class="switcher-inner">
-            <span class="switcher-label"><i class="fa-solid fa-display"></i> CHẾ ĐỘ XEM:</span>
-            <div class="switcher-options">
+    <!-- LUXURY DEVICE VIEW MODE SWITCHER (COMPACT HAMBURGER ICON ON LAPTOP/DESKTOP) -->
+    <div class="device-switcher-container" id="deviceSwitcherContainer">
+        <button class="switcher-toggle-btn" id="switcherToggleBtn" aria-label="Chế độ xem" title="Chế độ xem (Màn Hình Rộng / Khung Di Động)">
+            <i class="fa-solid fa-bars" id="switcherIcon"></i>
+        </button>
+        <div class="switcher-dropdown-menu" id="switcherDropdownMenu">
+            <div class="switcher-dropdown-header">
+                <i class="fa-solid fa-display"></i> CHỌN CHẾ ĐỘ XEM
+            </div>
+            <div class="switcher-dropdown-list">
                 <button class="switcher-btn active" data-mode="wide" title="Xem giao diện màn hình rộng trên PC">
-                    <i class="fa-solid fa-desktop"></i> Màn Hình Rộng
+                    <span class="switcher-btn-content">
+                        <i class="fa-solid fa-desktop"></i> Màn Hình Rộng
+                    </span>
+                    <i class="fa-solid fa-check switcher-check-icon"></i>
                 </button>
                 <button class="switcher-btn" data-mode="mobile" title="Xem giao diện khung Di Động">
-                    <i class="fa-solid fa-mobile-screen-button"></i> Khung Di Động
+                    <span class="switcher-btn-content">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Khung Di Động
+                    </span>
+                    <i class="fa-solid fa-check switcher-check-icon"></i>
                 </button>
             </div>
         </div>

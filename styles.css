@@ -68,8 +68,7 @@ body {
     font-family: var(--font-body);
     min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
-    padding-top: 48px; /* Offset for fixed 48px top device switcher bar */
+    padding-top: 0;
 }
 
 /* Ambient Background Lights & Canvas Overlay */
@@ -147,17 +146,17 @@ body.view-mode-mobile .envelope-screen.hidden {
     pointer-events: none !important;
 }
 
-/* Floating Music Controls with BẬT / TẮT Label Below (Shifted Down Below Top Switcher Bar) */
+/* Floating Music Controls with BẬT / TẮT Label Below */
 .audio-control-wrapper {
     position: fixed;
-    top: 62px;
+    top: 18px;
     right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
     cursor: pointer;
-    z-index: 100;
+    z-index: 10005;
     transition: var(--transition-smooth);
 }
 
@@ -166,8 +165,8 @@ body.view-mode-mobile .envelope-screen.hidden {
 }
 
 .audio-control-circle {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
     background: rgba(30, 6, 12, 0.9);
     border: 1.5px solid var(--color-gold);
     border-radius: 50%;
@@ -271,7 +270,7 @@ body.view-mode-mobile .envelope-screen.hidden {
 
 /* SECTION 1: LANDING SCREEN - GRADUATION CAP CHEVRON POSTER */
 .envelope-screen {
-    min-height: calc(100vh - 48px);
+    min-height: 100vh;
     margin-top: 0;
     display: flex;
     flex-direction: column;
@@ -350,11 +349,11 @@ body.view-mode-mobile .intro-vlu-top {
 .cover-sash-ribbon,
 body.view-mode-wide .cover-sash-ribbon {
     position: fixed !important;
-    top: 48px !important;
+    top: 15px !important;
     right: calc(50% + 285px) !important;
     left: auto !important;
-    height: calc(100vh - 65px) !important;
-    max-height: calc(100vh - 65px) !important;
+    height: calc(100vh - 30px) !important;
+    max-height: calc(100vh - 30px) !important;
     width: auto !important;
     z-index: 10 !important;
     display: block !important;
@@ -368,11 +367,11 @@ body.view-mode-wide .cover-sash-ribbon {
 .main-sash-ribbon,
 body.view-mode-wide .main-sash-ribbon {
     position: fixed !important;
-    top: 48px !important;
+    top: 15px !important;
     right: calc(50% + 495px) !important;
     left: auto !important;
-    height: calc(100vh - 65px) !important;
-    max-height: calc(100vh - 65px) !important;
+    height: calc(100vh - 30px) !important;
+    max-height: calc(100vh - 30px) !important;
     width: auto !important;
     z-index: 10 !important;
     display: block !important;
@@ -392,18 +391,18 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .main-sash-ribbon {
         right: calc(50% + 475px) !important;
         left: auto !important;
-        height: calc(100vh - 65px) !important;
-        max-height: calc(100vh - 65px) !important;
-        top: 48px !important;
+        height: calc(100vh - 30px) !important;
+        max-height: calc(100vh - 30px) !important;
+        top: 15px !important;
         display: block !important;
     }
     .cover-sash-ribbon,
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 275px) !important;
         left: auto !important;
-        height: calc(100vh - 65px) !important;
-        max-height: calc(100vh - 65px) !important;
-        top: 48px !important;
+        height: calc(100vh - 30px) !important;
+        max-height: calc(100vh - 30px) !important;
+        top: 15px !important;
         display: block !important;
     }
 }
@@ -2443,99 +2442,160 @@ body.view-mode-mobile .invitation-footer {
 }
 
 /* ==========================================================================
-   PINNED TOP DEVICE VIEW MODE SWITCHER BAR (VLU BRAND IDENTITY)
+   LUXURY DEVICE VIEW MODE SWITCHER (HAMBURGER DROPDOWN ON LAPTOP / PC)
    ========================================================================== */
-.device-switcher-bar {
+.device-switcher-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 48px;
-    z-index: 10000;
-    background: rgba(18, 2, 5, 0.98);
-    border-bottom: 1.5px solid var(--color-gold);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(197, 155, 39, 0.25);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 16px;
-    box-sizing: border-box;
+    top: 18px;
+    left: 20px;
+    z-index: 10005;
     transition: all 0.3s ease;
 }
 
-.switcher-inner {
+.switcher-toggle-btn {
+    width: 42px;
+    height: 42px;
+    background: rgba(22, 3, 6, 0.92);
+    border: 1.5px solid var(--color-gold);
+    border-radius: 50%;
+    padding: 0;
     display: flex;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
+    color: var(--color-gold-light);
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65), 0 0 12px rgba(197, 155, 39, 0.25);
+    backdrop-filter: blur(12px);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
 }
 
-.switcher-label {
+.switcher-toggle-btn:hover {
+    background: linear-gradient(135deg, rgba(139, 30, 30, 0.95) 0%, rgba(178, 34, 34, 0.95) 100%);
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+    box-shadow: 0 6px 22px rgba(139, 30, 30, 0.6), 0 0 15px rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.switcher-toggle-btn i {
+    font-size: 1.15rem;
+    color: var(--color-gold);
+    transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.switcher-toggle-btn:hover i {
+    color: #FFFFFF;
+}
+
+.switcher-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 230px;
+    background: rgba(18, 2, 5, 0.98);
+    border: 1.5px solid var(--color-gold);
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 20px rgba(197, 155, 39, 0.35);
+    backdrop-filter: blur(16px);
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    z-index: 10006;
+}
+
+.switcher-dropdown-menu.open {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: dropdownFadeIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dropdownFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.switcher-dropdown-header {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 800;
     color: var(--color-gold-light);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-}
-
-.switcher-options {
+    letter-spacing: 1.2px;
+    padding: 8px 12px 8px;
+    border-bottom: 1px dashed rgba(197, 155, 39, 0.3);
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 0, 0, 0.45);
-    padding: 4px 6px;
-    border-radius: 20px;
-    border: 1px solid rgba(197, 155, 39, 0.3);
+    text-transform: uppercase;
+}
+
+.switcher-dropdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
 }
 
 .switcher-btn {
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
     color: #DFD5C5;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 16px;
+    padding: 10px 14px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
-    gap: 6px;
-    white-space: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    outline: none;
+}
+
+.switcher-btn-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.switcher-check-icon {
+    font-size: 0.85rem;
+    color: var(--color-gold);
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
 .switcher-btn:hover {
+    background: rgba(197, 155, 39, 0.16);
     color: #FFFFFF;
-    background: rgba(197, 155, 39, 0.2);
 }
 
 .switcher-btn.active {
-    background: linear-gradient(135deg, #8B1E1E 0%, #B22222 100%);
+    background: linear-gradient(135deg, rgba(139, 30, 30, 0.92) 0%, rgba(178, 34, 34, 0.92) 100%);
     border: 1px solid var(--color-gold);
     color: #FFFFFF;
     font-weight: 800;
-    box-shadow: 0 4px 12px rgba(139, 30, 30, 0.4);
+    box-shadow: 0 4px 14px rgba(139, 30, 30, 0.5);
 }
 
-/* === REAL MOBILE DEVICE SUPPORT ===
-   Luôn hiển thị thanh chế độ xem trên mọi thiết bị.
-   Trên mobile thực tế: layout 1 cột đầy đủ, không có khung vàng giả điện thoại */
-@media (max-width: 768px) {
-    /* Luôn hiện thanh chuyển chế độ trên mobile thực tế */
-    .device-switcher-bar {
-        display: flex !important;
-    }
-
-    /* Thêm khoảng trống bên dưới thanh cố định */
-    body {
-        padding-top: 48px !important;
-    }
+.switcher-btn.active .switcher-check-icon {
+    opacity: 1;
+    color: #FFFFFF;
 }
 
 /* ===================================================
@@ -2565,11 +2625,7 @@ body.view-mode-mobile .edit-card-btn {
    Đồng bộ 100% với giao diện trên mobile (bỏ khung viền vàng giả lập, hiển thị nội dung thiệp chuẩn) */
 @media (min-width: 681px) and (min-height: 521px) {
     body.view-mode-mobile {
-        padding-top: 48px;
-    }
-
-    body.view-mode-mobile .device-switcher-bar {
-        display: flex !important;
+        padding-top: 0;
     }
 
     body.view-mode-mobile .envelope-screen {
@@ -2618,7 +2674,7 @@ body.view-mode-mobile .edit-card-btn {
    - HIỂN THỊ NỘI DUNG TỰ NHIÊN, TRÀN VIỀN
    =================================================== */
 @media (max-width: 680px), (max-height: 520px) and (orientation: landscape) and (max-width: 1000px) {
-    .device-switcher-bar {
+    .device-switcher-container {
         display: none !important;
     }
 

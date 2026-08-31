@@ -548,14 +548,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // --- DEVICE VIEW MODE SWITCHER (MOBILE / DESKTOP WIDE) ---
+    // --- DEVICE VIEW MODE SWITCHER (HAMBURGER DROPDOWN ON LAPTOP/DESKTOP) ---
+    const switcherToggleBtn = document.getElementById('switcherToggleBtn');
+    const switcherDropdownMenu = document.getElementById('switcherDropdownMenu');
+    const switcherIcon = document.getElementById('switcherIcon');
     const switcherBtns = document.querySelectorAll('.switcher-btn');
+
+    if (switcherToggleBtn && switcherDropdownMenu) {
+        switcherToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = switcherDropdownMenu.classList.toggle('open');
+            if (switcherIcon) {
+                if (isOpen) {
+                    switcherIcon.classList.remove('fa-bars');
+                    switcherIcon.classList.add('fa-xmark');
+                } else {
+                    switcherIcon.classList.remove('fa-xmark');
+                    switcherIcon.classList.add('fa-bars');
+                }
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#deviceSwitcherContainer')) {
+                switcherDropdownMenu.classList.remove('open');
+                if (switcherIcon) {
+                    switcherIcon.classList.remove('fa-xmark');
+                    switcherIcon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+
     if (switcherBtns && switcherBtns.length > 0) {
         switcherBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 switcherBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
+                // Close dropdown on selection
+                if (switcherDropdownMenu) {
+                    switcherDropdownMenu.classList.remove('open');
+                    if (switcherIcon) {
+                        switcherIcon.classList.remove('fa-xmark');
+                        switcherIcon.classList.add('fa-bars');
+                    }
+                }
+
                 const mode = btn.getAttribute('data-mode');
                 document.body.classList.remove('view-mode-mobile', 'view-mode-wide');
                 
