@@ -423,9 +423,12 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 255px) !important;
         left: auto !important;
-        height: calc(100vh - 65px) !important;
-        top: 50px !important;
+        height: calc(100vh - 6px) !important;
+        max-height: calc(100vh - 6px) !important;
+        top: 0px !important;
         display: block !important;
+        padding-bottom: 4px !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -446,9 +449,12 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 195px) !important;
         left: auto !important;
-        height: 470px !important;
-        top: 60px !important;
+        height: calc(100vh - 6px) !important;
+        max-height: calc(100vh - 6px) !important;
+        top: 0px !important;
         display: block !important;
+        padding-bottom: 4px !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -468,9 +474,12 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 180px) !important;
         left: auto !important;
-        height: 410px !important;
-        top: 65px !important;
+        height: calc(100vh - 6px) !important;
+        max-height: calc(100vh - 6px) !important;
+        top: 0px !important;
         display: block !important;
+        padding-bottom: 4px !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -479,6 +488,35 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         display: none !important;
     }
+}
+
+/* ========================================================
+   QUY TẮC ĐẶC TRỊ IPAD KHI Ở MÀN HÌNH RỘNG (LANDSCAPE / WIDE MODE):
+   - CHỈ CHỈNH PHẦN SASH TRANG ĐẦU (COVER SASH)
+   - ĐẨY SÁT LÊN TRÊN CÙNG 0px (KHÔNG CHỪA KHOẢNG TRỐNG BÊN TRÊN)
+   - CHIỀU CAO VỪA KHÍT MÀN HÌNH ĐỂ KHÔNG BỊ MẤT/CẮT CHỮ "CLASS OF 2027" BÊN DƯỚI
+   ======================================================== */
+body.is-ipad .cover-sash-ribbon,
+body.is-ipad.view-mode-wide .cover-sash-ribbon,
+body.view-mode-wide.is-ipad .cover-sash-ribbon,
+.is-ipad .cover-sash-ribbon {
+    position: fixed !important;
+    top: 0px !important;
+    height: calc(100vh - 6px) !important;
+    max-height: calc(100vh - 6px) !important;
+    width: auto !important;
+    z-index: 10 !important;
+    display: block !important;
+    filter: drop-shadow(0 0 2px #FFFFFF) drop-shadow(0 0 4px #FFFFFF) drop-shadow(0 10px 25px rgba(0, 0, 0, 0.4)) !important;
+    pointer-events: none !important;
+    box-sizing: border-box !important;
+    padding-bottom: 4px !important;
+    animation: sashFloatCoverIPad 4s ease-in-out infinite alternate !important;
+}
+
+@keyframes sashFloatCoverIPad {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(4px); }
 }
 
 /* ========================================================
