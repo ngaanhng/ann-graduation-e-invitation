@@ -423,8 +423,8 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 255px) !important;
         left: auto !important;
-        height: calc(100vh - 6px) !important;
-        max-height: calc(100vh - 6px) !important;
+        height: min(85vh, 85dvh, 580px) !important;
+        max-height: min(85vh, 85dvh, 580px) !important;
         top: 0px !important;
         display: block !important;
         padding-bottom: 4px !important;
@@ -449,8 +449,8 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 195px) !important;
         left: auto !important;
-        height: calc(100vh - 6px) !important;
-        max-height: calc(100vh - 6px) !important;
+        height: min(85vh, 85dvh, 580px) !important;
+        max-height: min(85vh, 85dvh, 580px) !important;
         top: 0px !important;
         display: block !important;
         padding-bottom: 4px !important;
@@ -474,8 +474,8 @@ body.view-mode-wide .main-sash-ribbon {
     body.view-mode-wide .cover-sash-ribbon {
         right: calc(50% + 180px) !important;
         left: auto !important;
-        height: calc(100vh - 6px) !important;
-        max-height: calc(100vh - 6px) !important;
+        height: min(85vh, 85dvh, 550px) !important;
+        max-height: min(85vh, 85dvh, 550px) !important;
         top: 0px !important;
         display: block !important;
         padding-bottom: 4px !important;
@@ -494,7 +494,7 @@ body.view-mode-wide .main-sash-ribbon {
    QUY TẮC ĐẶC TRỊ IPAD KHI Ở MÀN HÌNH RỘNG (LANDSCAPE / WIDE MODE):
    - CHỈ CHỈNH PHẦN SASH TRANG ĐẦU (COVER SASH)
    - ĐẨY SÁT LÊN TRÊN CÙNG 0px (KHÔNG CHỪA KHOẢNG TRỐNG BÊN TRÊN)
-   - CHIỀU CAO VỪA KHÍT MÀN HÌNH ĐỂ KHÔNG BỊ MẤT/CẮT CHỮ "CLASS OF 2027" BÊN DƯỚI
+   - THU NHỎ VỪA KHUNG (min(85vh, 85dvh, 580px)) ĐỂ KHÔNG BỊ MẤT/CẮT CHỮ "CLASS OF 2027" VÀ NHÌN THẤY TRỌN VẸN SASH
    ======================================================== */
 body.is-ipad .cover-sash-ribbon,
 body.is-ipad.view-mode-wide .cover-sash-ribbon,
@@ -502,8 +502,8 @@ body.view-mode-wide.is-ipad .cover-sash-ribbon,
 .is-ipad .cover-sash-ribbon {
     position: fixed !important;
     top: 0px !important;
-    height: calc(100vh - 6px) !important;
-    max-height: calc(100vh - 6px) !important;
+    height: min(85vh, 85dvh, 580px) !important;
+    max-height: min(85vh, 85dvh, 580px) !important;
     width: auto !important;
     z-index: 10 !important;
     display: block !important;
