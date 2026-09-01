@@ -271,12 +271,23 @@ document.addEventListener('DOMContentLoaded', () => {
             envelopeScreen.style.removeProperty('display');
             envelopeScreen.classList.remove('hidden');
             envelopeScreen.style.opacity = '1';
+            envelopeScreen.style.transition = 'opacity 0.3s ease';
             
             window.scrollTo(0, 0);
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
             
             applyAutoMobileMode();
+
+            // Đảm bảo chữ "Nguyễn Nga Anh" bên ngoài trên iPad, iPhone và Samsung luôn lấp lánh liên tục
+            const coverNameEl = document.getElementById('previewGraduateName') || document.querySelector('.cover-guest-name');
+            if (coverNameEl) {
+                coverNameEl.style.animation = 'none';
+                coverNameEl.style.webkitAnimation = 'none';
+                void coverNameEl.offsetWidth; // Force synchronous reflow / GPU repaint
+                coverNameEl.style.animation = '';
+                coverNameEl.style.webkitAnimation = '';
+            }
         });
     }
 
