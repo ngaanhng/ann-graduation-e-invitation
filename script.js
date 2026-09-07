@@ -5,6 +5,8 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Tự động nhận diện Mobile / iPhone / Samsung & chế độ xem ngay khi tải trang
+    applyAutoMobileMode();
 
     // --- DEFAULT DATA MODEL ---
     const defaultData = {
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INITIALIZATION ---
     function init() {
+        applyAutoMobileMode();
         renderCardData();
         startCountdown();
         renderCalendar();
@@ -722,6 +725,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.open(url, '_blank');
                     e.preventDefault();
                 }
+            }
+        });
+    });
+
+    // --- MOBILE / IPHONE / SAMSUNG ONLY DIRECT DRIVE IMAGE HANDLER ---
+    document.querySelectorAll('.mobile-drive-image-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const isMobile = document.body.classList.contains('view-mode-mobile') || 
+                             document.body.classList.contains('is-ios') || 
+                             document.body.classList.contains('is-samsung-android') || 
+                             window.innerWidth <= 768 ||
+                             ('ontouchstart' in window);
+
+            if (!isMobile) {
+                // Strictly disable opening on desktop PC / Màn hình rộng
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
             }
         });
     });

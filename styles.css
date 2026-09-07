@@ -1863,15 +1863,28 @@ body.is-ipad .mobile-video-overlay-link {
 }
 
 .drive-video-frame-box iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+    object-fit: cover !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    box-sizing: border-box !important;
     pointer-events: auto !important;
 }
+
 
 .video-caption-text {
     font-size: 0.88rem;
@@ -2051,6 +2064,34 @@ body.is-ipad .mobile-video-overlay-link {
 
 .campus-map-img-wrapper:hover {
     box-shadow: 0 12px 30px rgba(139, 30, 30, 0.18);
+}
+
+/* MOBILE DRIVE IMAGE LINK: STRICTLY ONLY FOR MOBILE, IPHONE, SAMSUNG */
+.mobile-drive-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    cursor: default;
+    pointer-events: none; /* Completely inactive on Desktop / PC / Màn hình rộng */
+}
+
+/* Enabled exclusively on Mobile / iPhone / Samsung / Touch devices */
+@media (max-width: 768px) {
+    .mobile-drive-image-link {
+        cursor: pointer !important;
+        pointer-events: auto !important;
+        -webkit-tap-highlight-color: rgba(197, 155, 39, 0.25);
+    }
+}
+
+body.view-mode-mobile .mobile-drive-image-link,
+body.is-ios .mobile-drive-image-link,
+body.is-samsung-android .mobile-drive-image-link,
+body.is-touch-device .mobile-drive-image-link {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: rgba(197, 155, 39, 0.25);
 }
 
 .campus-overview-img {
@@ -2894,13 +2935,24 @@ body.view-mode-mobile .edit-card-btn {
         box-sizing: border-box !important;
     }
 
-    /* Video container trên mobile */
-    .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen) {
-        width: min(320px, 90vw) !important;
+    /* Video container & iframe trên mobile (iPhone, Samsung, Android) */
+    .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
+    .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen),
+    body.is-ios .drive-video-frame-box.vertical-video,
+    body.is-samsung-android .drive-video-frame-box.vertical-video,
+    .is-ios .drive-video-frame-box.vertical-video,
+    .is-samsung-android .drive-video-frame-box.vertical-video {
+        width: min(320px, calc(100% - 16px)) !important;
         max-width: 320px !important;
         aspect-ratio: 9 / 16 !important;
+        height: auto !important;
         margin: 0 auto !important;
         overflow: hidden !important;
+        position: relative !important;
+        border-radius: 16px !important;
+        box-sizing: border-box !important;
+        background: #000000 !important;
+        -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
     }
 
     .drive-video-frame-box.landscape-video:not(.is-custom-fullscreen),
@@ -2914,7 +2966,33 @@ body.view-mode-mobile .edit-card-btn {
         height: auto !important;
         margin: 0 auto !important;
         overflow: hidden !important;
+        position: relative !important;
         border-radius: 14px !important;
+        box-sizing: border-box !important;
+        background: #000000 !important;
+        -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    }
+
+    .drive-video-frame-box iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 100% !important;
+        min-height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        object-fit: cover !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -3253,20 +3331,37 @@ body.view-mode-mobile .map-embed-container iframe {
 }
 
 /* ---- VIDEO: 1 cột gọn ---- */
-body.view-mode-mobile .video-card-container {
+/* ---- VIDEO: 1 cột gọn trên Mobile, iPhone, Samsung ---- */
+body.view-mode-mobile .video-card-container,
+body.is-ios .video-card-container,
+body.is-samsung-android .video-card-container,
+.is-ios .video-card-container,
+.is-samsung-android .video-card-container {
     grid-template-columns: 1fr !important;
     gap: 22px !important;
 }
 
 body.view-mode-mobile .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
-body.view-mode-mobile .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen) {
-    width: min(300px, calc(100% - 12px)) !important;
-    max-width: 300px !important;
+body.view-mode-mobile .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen),
+body.is-ios .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
+body.is-ios .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen),
+body.is-samsung-android .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
+body.is-samsung-android .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen),
+.is-ios .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
+.is-ios .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen),
+.is-samsung-android .drive-video-frame-box:not(.landscape-video):not(.is-custom-fullscreen),
+.is-samsung-android .drive-video-frame-box.vertical-video:not(.is-custom-fullscreen) {
+    width: min(320px, calc(100% - 16px)) !important;
+    max-width: 320px !important;
     aspect-ratio: 9 / 16 !important;
     height: auto !important;
     margin: 0 auto !important;
     overflow: hidden !important;
-    border-radius: 14px !important;
+    position: relative !important;
+    border-radius: 16px !important;
+    box-sizing: border-box !important;
+    background: #000000 !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
 }
 
 body.view-mode-mobile .drive-video-frame-box.landscape-video:not(.is-custom-fullscreen),
@@ -3280,17 +3375,39 @@ body.is-samsung-android .drive-video-frame-box.landscape-video,
     height: auto !important;
     margin: 0 auto !important;
     overflow: hidden !important;
+    position: relative !important;
     border-radius: 14px !important;
+    box-sizing: border-box !important;
+    background: #000000 !important;
+    -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
 }
 
-body.view-mode-mobile .drive-video-frame-box iframe {
+body.view-mode-mobile .drive-video-frame-box iframe,
+body.is-ios .drive-video-frame-box iframe,
+body.is-samsung-android .drive-video-frame-box iframe,
+.is-ios .drive-video-frame-box iframe,
+.is-samsung-android .drive-video-frame-box iframe,
+html.is-ios .drive-video-frame-box iframe,
+html.is-samsung-android .drive-video-frame-box iframe {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
     border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     display: block !important;
+    object-fit: cover !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+    box-sizing: border-box !important;
 }
 
 body.view-mode-mobile .video-caption-text {
@@ -3476,4 +3593,80 @@ body.view-mode-mobile .cover-laptop-recommend-hint {
     margin-bottom: 75px !important;
     font-size: 0.78rem !important;
 }
+
+/* ==========================================================================
+   CHỈNH KHỚP TOÀN BỘ KÍCH THƯỚC VIDEO VỚI KHUNG TRÊN MOBILE, IPHONE & SAMSUNG
+   - Video khớp 100% không bị lệch, không bị thanh đen, không bị đẩy lên trên.
+   ========================================================================== */
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+    .drive-video-frame-box:not(.landscape-video),
+    .drive-video-frame-box.vertical-video,
+    body.is-ios .drive-video-frame-box:not(.landscape-video),
+    body.is-ios .drive-video-frame-box.vertical-video,
+    body.is-samsung-android .drive-video-frame-box:not(.landscape-video),
+    body.is-samsung-android .drive-video-frame-box.vertical-video,
+    .is-ios .drive-video-frame-box:not(.landscape-video),
+    .is-ios .drive-video-frame-box.vertical-video,
+    .is-samsung-android .drive-video-frame-box:not(.landscape-video),
+    .is-samsung-android .drive-video-frame-box.vertical-video {
+        width: min(320px, calc(100% - 16px)) !important;
+        max-width: 320px !important;
+        aspect-ratio: 9 / 16 !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border-radius: 16px !important;
+        box-sizing: border-box !important;
+        background: #000000 !important;
+        -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    }
+
+    .drive-video-frame-box.landscape-video,
+    body.is-ios .drive-video-frame-box.landscape-video,
+    body.is-samsung-android .drive-video-frame-box.landscape-video,
+    .is-ios .drive-video-frame-box.landscape-video,
+    .is-samsung-android .drive-video-frame-box.landscape-video {
+        width: 100% !important;
+        max-width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        position: relative !important;
+        overflow: hidden !important;
+        border-radius: 14px !important;
+        box-sizing: border-box !important;
+        background: #000000 !important;
+        -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
+    }
+
+    .drive-video-frame-box iframe,
+    body.is-ios .drive-video-frame-box iframe,
+    body.is-samsung-android .drive-video-frame-box iframe,
+    .is-ios .drive-video-frame-box iframe,
+    .is-samsung-android .drive-video-frame-box iframe,
+    html.is-ios .drive-video-frame-box iframe,
+    html.is-samsung-android .drive-video-frame-box iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 100% !important;
+        min-height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        border: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+        object-fit: cover !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+        box-sizing: border-box !important;
+    }
+}
+
 
