@@ -2106,6 +2106,76 @@ body.is-ipad .mobile-video-overlay-link {
     filter: brightness(0.9);
 }
 
+/* BUILDING GUIDE GRID (TOA A & TOA J SIDE BY SIDE) */
+.building-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+    width: 100%;
+}
+
+@media (max-width: 580px) {
+    .building-guide-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+.building-guide-item {
+    width: 100%;
+}
+
+.building-guide-link {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+}
+
+.building-guide-img-wrapper {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1.5px solid #DFD5C5;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    background: #FFFFFF;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.building-guide-link:hover .building-guide-img-wrapper {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(139, 30, 30, 0.18);
+    border-color: #C59B27;
+}
+
+.building-guide-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.building-guide-caption {
+    color: #5C4343 !important;
+    font-size: 0.88rem !important;
+    font-weight: 400 !important;
+    line-height: 1.65 !important;
+    text-align: justify !important;
+    text-justify: inter-word !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-top: 14px !important;
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.building-guide-caption i {
+    color: #C59B27 !important;
+    font-size: 1rem !important;
+    margin-right: 6px !important;
+    display: inline !important;
+    vertical-align: -1px !important;
+}
+
 .img-overlay-hover {
     position: absolute;
     top: 0;
