@@ -308,9 +308,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let activePlayingBox = null;
     let isCursorOverVideo = false;
 
+    function isMobileOrTabletDevice() {
+        if (document.body.classList.contains('view-mode-mobile')) return true;
+        if (document.body.classList.contains('is-ios') || 
+            document.body.classList.contains('is-samsung-android') ||
+            document.body.classList.contains('is-ipad') ||
+            document.body.classList.contains('is-touch-device')) return true;
+
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent) || 
+                      (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1);
+        if (isIOS) return true;
+
+        const isAndroid = /Android|Samsung|Linux arm/i.test(navigator.userAgent);
+        if (isAndroid) return true;
+
+        const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 0);
+        if (isTouch && window.innerWidth <= 1180) return true;
+
+        if (window.innerWidth <= 768) return true;
+
+        return false;
+    }
+
     function isDesktopWide() {
+        if (isMobileOrTabletDevice()) return false;
         if (document.body.classList.contains('view-mode-wide')) return true;
-        if (document.body.classList.contains('view-mode-mobile')) return false;
         return window.innerWidth > 768;
     }
 
@@ -339,74 +361,53 @@ document.addEventListener('DOMContentLoaded', () => {
                   document.msFullscreenElement);
     }
 
-    // Hiển thị Khung hình 1 cho TẤT CẢ các video trên thiệp (chỉ ở chế độ xem mặc định)
+    // Đã bỏ khung thông báo theo yêu cầu của người dùng
     function showDesktopKhung1OnAllVideos() {
-        if (isCurrentlyInFullscreen()) return;
-        const allBoxes = document.querySelectorAll('.drive-video-frame-box');
-        allBoxes.forEach(box => {
-            updateVideoStatusBadge(box, "Đang xem video (nhạc tạm tắt)", "Bật lại nhạc", () => {
-                resumeMusicFromBadge();
-            });
-        });
+        return;
     }
 
-    // Khi người dùng bấm nút vàng [Bật lại nhạc] trên khung video
-    function resumeMusicFromBadge() {
-        musicPausedByVideo = false;
+    let playedBoxes = new Set();
+    let isStoppingVideos = false;
+
+    // Dừng ngay lập tức toàn bộ video đang phát và âm thanh của video
+    function stopPlayingVideos() {
+        isStoppingVideos = true;
+
+        // Tập hợp các khung video cần dừng
+        const boxesToStop = new Set(playedBoxes);
+        if (activePlayingBox) boxesToStop.add(activePlayingBox);
+        const targetBoxes = boxesToStop.size > 0 ? boxesToStop : document.querySelectorAll('.drive-video-frame-box');
+
+        targetBoxes.forEach(box => {
+            if (!box) return;
+            const iframe = box.querySelector('iframe');
+            if (iframe && iframe.src) {
+                try {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                    iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+                } catch (_) {}
+            }
+        });
+
+        playedBoxes.clear();
+        activePlayingBox = null;
         isVideoPlaying = false;
         videoEndedPendingMusic = false;
-        userExplicitlyMuted = false;
-        wasMusicPlayingBeforeVideo = true;
-        cancelVideoResumeTimer();
-        cancelVideoNaturalEndTimer();
-        playAudio();
-        removeAllVideoStatusBadges();
+
+        // Khóa các sự kiện blur/click kích hoạt lại video trong 600ms
+        setTimeout(() => {
+            isStoppingVideos = false;
+        }, 600);
     }
 
-    // Hàm cập nhật hoặc tạo huy hiệu trạng thái thông minh trên khung video
-    function updateVideoStatusBadge(box, stateText, actionText = null, onAction = null) {
-        if (!box) box = activePlayingBox || document.querySelector('.drive-video-frame-box');
-        if (!box) return;
-        let badge = box.querySelector('.video-playback-status-pill');
-        if (!badge) {
-            badge = document.createElement('div');
-            badge.className = 'video-playback-status-pill';
-            badge.innerHTML = `
-                <span class="pill-dot"></span>
-                <span class="pill-text"></span>
-                <button type="button" class="pill-action-btn" style="display:none;"></button>
-            `;
-            // Ngăn chặn sự kiện chạm/click từ huy hiệu truyền lên khung video (để không bị hiểu nhầm là click phát video)
-            badge.addEventListener('pointerdown', (e) => e.stopPropagation());
-            badge.addEventListener('mousedown', (e) => e.stopPropagation());
-            badge.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
-            badge.addEventListener('click', (e) => e.stopPropagation());
+    // Khi người dùng bấm nút bật lại nhạc (Đã bỏ khung thông báo)
+    function resumeMusicFromBadge() {
+        return;
+    }
 
-            box.appendChild(badge);
-        }
-        const textEl = badge.querySelector('.pill-text');
-        const btnEl = badge.querySelector('.pill-action-btn');
-        if (textEl) textEl.textContent = stateText;
-        if (btnEl) {
-            if (actionText) {
-                btnEl.textContent = actionText;
-                btnEl.style.display = 'inline-block';
-                btnEl.onclick = (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (onAction) onAction();
-                };
-            } else {
-                btnEl.style.display = 'none';
-            }
-        }
-        badge.onclick = (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (onAction) onAction();
-        };
-        badge.style.display = 'flex';
-        badge.style.opacity = '1';
+    // Hàm cập nhật hoặc tạo huy hiệu trạng thái thông minh trên khung video (Đã bỏ toàn bộ)
+    function updateVideoStatusBadge() {
+        return;
     }
 
     function removeAllVideoStatusBadges() {
@@ -439,110 +440,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function onVideoPlayStarted(targetBox, sourceInfo) {
+        if (isStoppingVideos) return;
+
         cancelVideoResumeTimer();
         cancelVideoNaturalEndTimer();
         isVideoPlaying = true;
         videoEndedPendingMusic = false;
         wasMusicPlayingBeforeVideo = true;
         musicPausedByVideo = true;
-        if (targetBox) activePlayingBox = targetBox;
 
+        if (targetBox) {
+            // Dừng các video khác nếu có video trước đó đang mở để không phát 2 video cùng lúc
+            playedBoxes.forEach(prevBox => {
+                if (prevBox && prevBox !== targetBox) {
+                    const oldIframe = prevBox.querySelector('iframe');
+                    if (oldIframe && oldIframe.src) {
+                        try {
+                            oldIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                            oldIframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+                        } catch (_) {}
+                        const oSrc = oldIframe.getAttribute('data-original-src') || oldIframe.src.split('?')[0];
+                        oldIframe.setAttribute('data-original-src', oSrc);
+                        oldIframe.src = oSrc;
+                    }
+                }
+            });
+
+            activePlayingBox = targetBox;
+            playedBoxes.add(targetBox);
+        }
+
+        // TẮT NHẠC NỀN KHI BẬT/XEM VIDEO (CẢ DESKTOP VÀ MOBILE)
         if (isPlayingAudio) {
             pauseAudio();
             console.log("Đã tự động tắt nhạc nền khi bắt đầu phát video:", sourceInfo || "");
         }
 
-        if (isDesktopWide()) {
-            // Trên Desktop/Laptop (Màn hình rộng):
-            // Hiển thị Khung hình 1 cho TẤT CẢ các video trên thiệp ở chế độ xem mặc định
-            // KHÔNG tự động hẹn giờ bật nhạc khi xem xong video
-            showDesktopKhung1OnAllVideos();
-        } else {
-            // Trên di động
-            updateVideoStatusBadge(activePlayingBox, "Đang xem video (nhạc tạm tắt)", "Bật lại nhạc", () => {
-                resumeMusicFromBadge();
-            });
-        }
+        // Đã bỏ toàn bộ khung thông báo trên mọi giao diện (cả Desktop và Mobile)
+        removeAllVideoStatusBadges();
     }
 
     function onVideoPaused() {
-        if (isDesktopWide()) {
-            // Trên Desktop/Laptop: Giữ nguyên Khung hình 1 trên các video, không đổi chữ, không tự động lên nhạc
-            if (musicPausedByVideo) {
-                showDesktopKhung1OnAllVideos();
-            }
-            return;
-        }
-
-        cancelVideoNaturalEndTimer();
-        cancelVideoResumeTimer();
-        updateVideoStatusBadge(activePlayingBox, "Đang xem video (nhạc tạm tắt)", "Bật lại nhạc", () => {
-            resumeMusicFromBadge();
-        });
+        // Không tự động làm gì, nhạc nền giữ nguyên trạng thái hiện tại
     }
 
     function onVideoReachedLastSecond() {
         cancelVideoNaturalEndTimer();
         cancelVideoResumeTimer();
-
-        if (isDesktopWide()) {
-            // Yêu cầu của người dùng:
-            // "chỉ chỉnh cho giao diện Máy tính (PC / Laptop màn hình rộng) là không cần tự động bật nhạc lên khi xem hết video nữa;
-            // mà hãy chỉ hiển thị khung hình 1 này cho video đang ở chế độ xem mặc định ( chỉ hiển thị ở chế độ này);
-            // và chỉnh khung này hiển thị cho các video luôn dù đang bật video này hay dừng bật video khác và phải bấm nút vàng mà bật lại nhạc được"
-            if (musicPausedByVideo) {
-                showDesktopKhung1OnAllVideos();
-            }
-            return;
-        }
-
-        // Trên di động (nếu có):
-        triggerResumeMusicCountdown(2000);
+        // Không tự động bật nhạc khi xem hết video, người xem muốn mở thì bấm icon nút phát nhạc
     }
 
-    function triggerResumeMusicCountdown(delay = 2000) {
-        if (isDesktopWide()) return; // Tuyệt đối không tự động đếm ngược trên Desktop
-        if (!wasMusicPlayingBeforeVideo || userExplicitlyMuted) return;
-
-        cancelVideoResumeTimer();
-        cancelVideoNaturalEndTimer();
-
-        let remainingSec = Math.ceil(delay / 1000);
-        if (delay === 0 || remainingSec <= 0) {
-            videoEndedPendingMusic = false;
-            isVideoPlaying = false;
-            if (!userExplicitlyMuted && !isPlayingAudio) {
-                playAudio();
-            }
-            removeVideoStatusBadge(activePlayingBox);
-            wasMusicPlayingBeforeVideo = true;
-            return;
-        }
-
-        updateVideoStatusBadge(activePlayingBox, `✨ Video đã đến giây cuối · Đang bật nhạc sau ${remainingSec}s...`, "Bật ngay", () => {
-            triggerResumeMusicCountdown(0);
-        });
-
-        videoResumeCountdownInterval = setInterval(() => {
-            remainingSec--;
-            if (remainingSec > 0) {
-                updateVideoStatusBadge(activePlayingBox, `✨ Video đã đến giây cuối · Đang bật nhạc sau ${remainingSec}s...`, "Bật ngay", () => {
-                    triggerResumeMusicCountdown(0);
-                });
-            } else {
-                clearInterval(videoResumeCountdownInterval);
-                videoResumeCountdownInterval = null;
-                videoResumeMusicTimer = null;
-                videoEndedPendingMusic = false;
-                isVideoPlaying = false;
-
-                if (!userExplicitlyMuted && !isPlayingAudio) {
-                    playAudio();
-                }
-                removeVideoStatusBadge(activePlayingBox);
-                wasMusicPlayingBeforeVideo = true;
-            }
-        }, 1000);
+    function triggerResumeMusicCountdown() {
+        return; // Đã bỏ hoàn toàn tính năng tự động đếm ngược bật nhạc
     }
 
     if (audioToggleBtn) {
@@ -560,7 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 wasMusicPlayingBeforeVideo = true;
                 musicPausedByVideo = false;
                 playAudio();
-                removeAllVideoStatusBadges();
             }
         });
     }
@@ -986,14 +934,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- MOBILE & IPAD DIRECT DRIVE REDIRECT HANDLER ---
     document.querySelectorAll('.mobile-video-overlay-link').forEach(link => {
         link.addEventListener('click', (e) => {
-            const isIPadOrTablet = navigator.userAgent.includes('iPad') || 
-                                   (navigator.userAgent.includes('Macintosh') && navigator.maxTouchPoints > 1) ||
-                                   document.body.classList.contains('is-ipad') ||
-                                   document.body.classList.contains('is-touch-device') ||
-                                   (window.innerWidth <= 1180 && ('ontouchstart' in window || navigator.maxTouchPoints > 0));
-            const isMobile = document.body.classList.contains('view-mode-mobile') || window.innerWidth <= 768;
-
-            if (isMobile || isIPadOrTablet) {
+            if (isMobileOrTabletDevice()) {
+                // Dừng nhạc bg ngay lập tức khi bấm xem video chuyển tab sang link Drive
+                if (isPlayingAudio) {
+                    pauseAudio();
+                    console.log("Mobile/Tablet: Đã dừng nhạc bg khi bấm xem video chuyển tab sang link Drive");
+                }
                 const url = link.getAttribute('href');
                 if (url) {
                     window.open(url, '_blank');
@@ -1101,34 +1047,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Bắt sự kiện click / pointerdown vào khung video
             box.addEventListener('pointerdown', (e) => {
-                // Bỏ qua nếu bấm vào huy hiệu trạng thái hoặc nút bật lại nhạc
-                if (e.target && e.target.closest && e.target.closest('.video-playback-status-pill')) {
-                    return;
-                }
+                if (isStoppingVideos) return;
                 activePlayingBox = box;
                 lastPointerX = e.clientX;
                 lastPointerY = e.clientY;
-                if (!isDesktopWide() && checkTimelineEndZone(box, e.clientX, e.clientY)) {
-                    isScrubbingNearEnd = true;
-                    onVideoReachedLastSecond();
-                    return;
-                }
                 onVideoPlayStarted(box, 'box pointerdown');
             });
 
             box.addEventListener('click', (e) => {
-                // Bỏ qua nếu bấm vào huy hiệu trạng thái hoặc nút bật lại nhạc
-                if (e.target && e.target.closest && e.target.closest('.video-playback-status-pill')) {
-                    return;
-                }
+                if (isStoppingVideos) return;
                 activePlayingBox = box;
                 lastPointerX = e.clientX;
                 lastPointerY = e.clientY;
-                if (!isDesktopWide() && checkTimelineEndZone(box, e.clientX, e.clientY)) {
-                    isScrubbingNearEnd = true;
-                    onVideoReachedLastSecond();
-                    return;
-                }
                 onVideoPlayStarted(box, 'box click');
             });
         });
@@ -1149,6 +1079,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bắt sự kiện click vào poster thumbnail của video ngang (nếu có)
         document.querySelectorAll('.custom-poster-box').forEach(box => {
             box.addEventListener('click', () => {
+                if (isStoppingVideos) return;
                 activePlayingBox = box;
                 onVideoPlayStarted(box, 'custom poster click');
             });
@@ -1157,6 +1088,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Xử lý Desktop khi người dùng nhấp vào iframe video:
         // Cửa sổ chính sẽ mất focus (window.blur).
         window.addEventListener('blur', () => {
+            if (isStoppingVideos) return;
             if (isCursorOverVideo || (document.activeElement && document.activeElement.tagName === 'IFRAME')) {
                 const parentBox = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.drive-video-frame-box') : activePlayingBox;
                 onVideoPlayStarted(parentBox, 'desktop iframe blur');
@@ -1170,22 +1102,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isFullscreen) {
                 if (isPlayingAudio) pauseAudio();
                 console.log("Đang hiển thị video ở chế độ phóng to toàn màn hình.");
-                // Ẩn huy hiệu trên tất cả khung video khi phóng to toàn màn hình
-                document.querySelectorAll('.video-playback-status-pill').forEach(b => {
-                    b.style.display = 'none';
-                });
             } else {
                 console.log("Người xem đã thoát chế độ phóng to toàn màn hình.");
-                if (isDesktopWide()) {
-                    // Trên Desktop: Hiển thị lại Khung hình 1 ở chế độ xem mặc định nếu nhạc đang tắt do xem video
-                    if (musicPausedByVideo && !isPlayingAudio) {
-                        showDesktopKhung1OnAllVideos();
-                    }
-                } else {
-                    if (isVideoPlaying || videoEndedPendingMusic || activePlayingBox) {
-                        onVideoReachedLastSecond();
-                    }
-                }
             }
         }
         document.addEventListener('fullscreenchange', handleFullscreenChange);
@@ -1195,15 +1113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // KHI NGƯỜI DÙNG QUAY TRỞ LẠI TAB THIỆP:
         function handleTabReturn() {
-            if (isDesktopWide()) {
-                if (musicPausedByVideo && !isPlayingAudio && !isCurrentlyInFullscreen()) {
-                    showDesktopKhung1OnAllVideos();
-                }
-                return;
-            }
-            if (isVideoPlaying || videoEndedPendingMusic || activePlayingBox) {
-                onVideoReachedLastSecond();
-            }
+            // Không tự động bật lại nhạc khi quay lại tab thiệp. Người xem tự mở trên icon nút phát nhạc.
         }
         window.addEventListener('focus', handleTabReturn);
         document.addEventListener('visibilitychange', () => {
@@ -1214,53 +1124,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Khi người dùng bấm chuột hoặc chạm ra ngoài video (trên trang thiệp):
         function onInteractOutsideVideo(e) {
-            // Nếu người xem bấm vào khung video thì bỏ qua
-            if (e && e.target && e.target.closest && e.target.closest('.drive-video-frame-box')) {
-                return;
-            }
-            if (isDesktopWide()) return; // Trên Desktop không tự động bật nhạc khi bấm ra ngoài
-
-            if (isVideoPlaying && !videoEndedPendingMusic) {
-                onVideoReachedLastSecond();
-            }
+            // Không tự động bật lại nhạc
         }
         document.addEventListener('click', onInteractOutsideVideo);
         document.addEventListener('touchstart', onInteractOutsideVideo, { passive: true });
 
         // Khi người dùng cuộn trang rời khỏi video đang phát:
-        let scrollDebounceTimer = null;
         window.addEventListener('scroll', () => {
-            if (isDesktopWide()) return; // Trên Desktop không tự động bật nhạc khi cuộn trang
-            if (!activePlayingBox || !isVideoPlaying || videoEndedPendingMusic) return;
-            clearTimeout(scrollDebounceTimer);
-            scrollDebounceTimer = setTimeout(() => {
-                if (activePlayingBox) {
-                    const rect = activePlayingBox.getBoundingClientRect();
-                    const isOutOfView = (rect.bottom < 50) || (rect.top > window.innerHeight - 50);
-                    if (isOutOfView) {
-                        onVideoReachedLastSecond();
-                    }
-                }
-            }, 300);
+            // Không tự động bật lại nhạc
         }, { passive: true });
 
         // Phím ESC trên máy tính:
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' || e.keyCode === 27) {
-                setTimeout(() => {
-                    if (isDesktopWide()) {
-                        if (musicPausedByVideo && !isPlayingAudio && !isCurrentlyInFullscreen()) {
-                            showDesktopKhung1OnAllVideos();
-                        }
-                    } else {
-                        if (isVideoPlaying || videoEndedPendingMusic || activePlayingBox) {
-                            if (!isCurrentlyInFullscreen()) {
-                                onVideoReachedLastSecond();
-                            }
-                        }
-                    }
-                }, 100);
-            }
+            // Không tự động bật lại nhạc
         });
 
         // HÀM PHÂN TÍCH TIN NHẮN TỪ DRIVE / YOUTUBE HTML5 PLAYER (HỖ TRỢ CẢ XEM HẾT & TUA / KÉO ĐẾN CUỐI)
@@ -1347,6 +1223,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const result = parsePlayerMessage(event.data);
                 if (!result) return;
+
+                if (typeof result.curTime === 'number' && activePlayingBox) {
+                    activePlayingBox._currentPosition = result.curTime;
+                    activePlayingBox._basePosition = result.curTime;
+                    activePlayingBox._playStartTime = Date.now();
+                }
 
                 if (result.ended) {
                     console.log("Phát hiện video đến giây cuối cùng (kết thúc hoặc tua/kéo đến cuối qua message):", result);
